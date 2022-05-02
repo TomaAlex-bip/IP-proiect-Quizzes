@@ -50,5 +50,19 @@
     <Compile Include="Presenters\UserPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{5d2d5894-c5ec-4c45-8751-2a9ab32e609f}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{33761ed0-c9bf-4e07-9e2b-0592e680af06}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Proiect_IP_Quizzes\Proiect_IP_Quizzes.csproj">
+      <Project>{3e383c5c-107b-4782-b6d2-2f6a905e517e}</Project>
+      <Name>Proiect_IP_Quizzes</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
