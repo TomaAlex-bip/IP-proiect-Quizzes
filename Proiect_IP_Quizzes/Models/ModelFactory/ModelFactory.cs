@@ -18,7 +18,7 @@ namespace Models.ModelFactory
 
         public UserModel GetUserModel() => new UserModel();
 
-        public QuizModel GetQuizModel(string type, int size) => new QuizModel(type, size);
+        public QuizModel GetQuizModel() => new QuizModel();
 
         public AdminModel GetAdminModel() => new AdminModel();
 

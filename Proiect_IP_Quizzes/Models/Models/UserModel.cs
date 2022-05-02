@@ -10,15 +10,14 @@ namespace Models
 {
     public class UserModel
     {
-        public Statistic UserStatistic { get; private set; }
-        public List<Attempt> UserAttempts { get; private set; }
-
+        private Statistic _userStatistic;
+        private List<Attempt> _userAttempts;
         private bool quizAttempted;
 
 
         public UserModel()
         {
-            UserAttempts = new List<Attempt>();
+            _userAttempts = new List<Attempt>();
             quizAttempted = false;
         }
 
@@ -26,22 +25,22 @@ namespace Models
         {
             if(quizAttempted)
             {
-                UserStatistic = DatabaseContext.GetInstance.GetUserStatistics(userId);
+                _userStatistic = DatabaseContext.GetInstance.GetUserStatistics(userId);
                 quizAttempted = false;
             }
             
-            return UserStatistic;
+            return _userStatistic;
         }
 
         public List<Attempt> GetUserAttempts(int userId)
         {
             if(quizAttempted)
             {
-                UserAttempts = DatabaseContext.GetInstance.GetUserAttempts(userId);
+                _userAttempts = DatabaseContext.GetInstance.GetUserAttempts(userId);
                 quizAttempted = false;
             }
 
-            return UserAttempts;
+            return _userAttempts;
         }
 
         public List<string> GetQuestionTypes()

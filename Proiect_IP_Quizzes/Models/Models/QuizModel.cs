@@ -15,13 +15,21 @@ namespace Models
 
         private List<Question> _quizQuestions;
 
+        private int _correctAnswers;
+        private int _wrongAnswers;
 
-        public QuizModel(string type, int size)
+        public QuizModel()
+        {
+            _quizQuestions = new List<Question>();
+            _correctAnswers = 0;
+            _wrongAnswers = 0;
+        }
+
+        public void GenerateRandomQuiz(string type, int size)
         {
             TotalQuestions = size;
             FinishedQuestions = 0;
-
-            _quizQuestions = new List<Question>();
+            _quizQuestions.Clear();
 
             List<Question> totalQuestions = DatabaseContext.GetInstance.GetQuestionsOfType(type);
 
@@ -45,12 +53,16 @@ namespace Models
             return null;
         }
 
-        public bool VerifyQuestionAnswer(Question question, int answer)
+        public void VerifyQuestionAnswer(int answer)
         {
-            if (question.CorrectAnswer == answer)
-                return true;
-            
-            return false;
+            if (_quizQuestions[FinishedQuestions].CorrectAnswer == answer)
+            {
+                _correctAnswers++;
+            }
+            else
+            {
+                _wrongAnswers++;
+            }
         }
 
     }
