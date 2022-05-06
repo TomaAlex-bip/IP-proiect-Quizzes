@@ -24,20 +24,21 @@ namespace Persistence
         }
 
         public static SQLiteConnection ConnectToDatabase()
-        { 
-            try 
-            { 
+        {
+            try
+            {
                 SQLiteConnection sqlite_conn;
                 sqlite_conn = new SQLiteConnection("Data Source=quizzes.db;Version=3;");
                 sqlite_conn.Open();
             }
 
-            catch(SQLiteException)
+            catch (SQLiteException)
             {
                 return null;
             }
 
             return null;
+        }
     }
    
 
