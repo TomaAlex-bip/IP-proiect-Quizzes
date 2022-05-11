@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    internal class Quiz
+    public class Quiz
     {
     }
 }
