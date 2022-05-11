@@ -16,5 +16,15 @@ namespace Proiect_IP_Quizzes.Forms
         {
             InitializeComponent();
         }
+
+        private void OnRegisterClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OnLoginClick(object sender, EventArgs e)
+        {
+
+        }
     }
 }

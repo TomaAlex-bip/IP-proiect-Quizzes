@@ -24,7 +24,5 @@ namespace Presenters.Presenters
         {
             return _model.LoginUser(username, hash);
         }
-
-
     }
 }
