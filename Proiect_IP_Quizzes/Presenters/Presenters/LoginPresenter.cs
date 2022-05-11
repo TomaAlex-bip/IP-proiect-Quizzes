@@ -8,5 +8,6 @@ namespace Presenters.Presenters
 {
     internal class LoginPresenter
     {
+
     }
 }
