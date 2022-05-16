@@ -8,5 +8,13 @@ namespace Entities
 {
     public class Quiz
     {
+        public int QuestionsNumber { get; private set; }
+        public List<Question> Questions { get; private set; }
+        public Attempt QuizAttempt { get; private set; }
+
+        public Quiz(int questionsNumber)
+        {
+            QuestionsNumber = questionsNumber;
+        }
     }
 }
