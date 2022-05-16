@@ -130,9 +130,8 @@ namespace Persistence
                 SQLiteCommand cmd;
                 SQLiteDataReader dataReader;
                 String sql;
-                string output;
 
-                sql = "SELECT u.username, s.tests_passed, s.tests_failed, SUM(s.tests_passed,s.tests_failed) FROM Users u, Statistics s WHERE u.user_id = s.user_id AND u.username = '" + "
+                sql = $"SELECT tests_passed, tests_failed, tests_failed+tests_passed AS tests FROM Statistics WHERE user_id = {userID}";
 
                 cmd = _sqlConn.CreateCommand();
                 cmd.CommandText = sql;
@@ -140,7 +139,7 @@ namespace Persistence
 
                 while (dataReader.Read())
                 {
-                    output = dataReader.GetString(0);
+                    var output = dataReader.GetString(0);
                 }
 
                 dataReader.Close();
@@ -154,6 +153,277 @@ namespace Persistence
                 Console.WriteLine(e);
             }
             return new Statistic();
+
+        }
+        public List<Attempt> GetUserAttempts(int userID)
+        {
+            List<Attempt> attempts = new List<Attempt>();
+
+            try
+            {
+                SQLiteCommand cmd;
+                SQLiteDataReader dataReader;
+                String sql;
+
+
+                sql = "SELECT attempt_id,quiz_type,attempt_date,correct_answers,wrong_answers FROM Attempts WHERE user_id = '" + userID + "'";
+
+                cmd = _sqlConn.CreateCommand();
+                cmd.CommandText = sql;
+                dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    var atid = dataReader.GetInt32(0);
+                    var name = dataReader.GetString(1);
+                    var attd = dataReader.GetString(2);
+                    var ca = dataReader.GetInt32(3);
+                    var wa = dataReader.GetInt32(4);
+                    Console.WriteLine(atid + " " + name + " " + attd + " " + ca + " " + wa);
+
+                    Attempt a = new Attempt();
+
+                    attempts.Add(a);
+
+                }
+
+                dataReader.Close();
+                cmd.Dispose();
+
+                DisconnectFromDatabase();
+            }
+
+            catch (SQLiteException e)
+            {
+                Console.WriteLine(e);
+            }
+            return attempts;
+        }
+
+        public List<Question> GetQuestionsOfType(string type)
+        {
+            List<Question> questions = new List<Question>();
+            
+            try
+            {
+                SQLiteCommand cmd;
+                SQLiteDataReader dataReader;
+                String sql;
+
+
+                sql = $"SELECT question_text, question_answer_1, question_answer_2, question_answer_3, question_correct_answer FROM Questions WHERE question_type = '{type}'";
+
+                cmd = _sqlConn.CreateCommand();
+                cmd.CommandText = sql;
+                dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    var qt = dataReader.GetString(0);
+                    var qa1 = dataReader.GetString(1);
+                    var qa2 = dataReader.GetString(2);
+                    var qa3 = dataReader.GetString(3);
+                    var qca = dataReader.GetString(4);
+                    Console.WriteLine(qt + " " + qa1 + " " + qa2 + " " + qa3 + " " + qca);
+
+                    Question question = new Question();
+
+                    questions.Add(question);
+                }
+
+                dataReader.Close();
+                cmd.Dispose();
+
+                DisconnectFromDatabase();
+            }
+
+            catch (SQLiteException e)
+            {
+                Console.WriteLine(e);
+            }
+            return questions;
+        }
+
+        public List<string> GetQuestionsType(string type)
+        {
+            List<string> qtype = new List<string>();
+            
+            try
+            {
+                SQLiteCommand cmd;
+                SQLiteDataReader dataReader;
+                String sql;
+
+
+                sql = $"SELECT DISTINCT question_type FROM Questions WHERE question_type = '{type}'";
+
+                cmd = _sqlConn.CreateCommand();
+                cmd.CommandText = sql;
+                dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    var qt = dataReader.GetString(0);
+                    Console.WriteLine(qt);
+
+                    qtype.Add(qt);
+
+                    //nush aici
+
+                }
+
+                dataReader.Close();
+                cmd.Dispose();
+
+                DisconnectFromDatabase();
+            }
+
+            catch (SQLiteException e)
+            {
+                Console.WriteLine(e);
+            }
+            return qtype;
+           
+        }
+
+        public List<Question> GetAllQuestions()
+        {
+            List<Question> allq = new List<Question>();
+
+            try
+            {
+                SQLiteCommand cmd;
+                SQLiteDataReader dataReader;
+                String sql;
+
+
+                sql = $"SELECT question_text, question_answer_1, question_answer_2, question_answer_3, question_correct_answer FROM Questions";
+
+                cmd = _sqlConn.CreateCommand();
+                cmd.CommandText = sql;
+                dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    var qt = dataReader.GetString(0);
+                    var qa1 = dataReader.GetString(1);
+                    var qa2 = dataReader.GetString(2);
+                    var qa3 = dataReader.GetString(3);
+                    var qca = dataReader.GetString(4);
+
+                    Question qs = new Question();
+
+                    allq.Add(qs);
+
+                }
+
+                dataReader.Close();
+                cmd.Dispose();
+
+                DisconnectFromDatabase();
+            }
+
+            catch (SQLiteException e)
+            {
+                Console.WriteLine(e);
+            }
+            return allq;
+
+        }
+
+        public bool AddQuestion(Question question)
+        {
+            ConnectToDatabase();
+            try
+            {
+                SQLiteCommand cmd;
+                cmd = _sqlConn.CreateCommand();
+                String sql;
+
+
+                sql = "INSERT INTO Questions(question_type,question_text,question_answer_1,question_answer_2,question_answer_3,question_correct_answer) " +
+                    "VALUES ('C#','DADA','NU','DA','DAADAD','YESYESYES')";
+
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+
+                
+                cmd.Dispose();
+                DisconnectFromDatabase();
+
+                return true;
+
+            }
+            catch (SQLiteException e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
+        }
+        public bool UpdateQuestion(int id)
+        {
+            ConnectToDatabase();
+            try
+            {
+                SQLiteCommand cmd;
+                cmd = _sqlConn.CreateCommand();
+                String sql;
+
+
+                sql = "UPDATE Questions SET " +
+                    "question_type = 'C#', " +
+                    "question_text = 'Noua schimbare', " +
+                    "question_answer_1 = 'Este ma', " +
+                    "question_answer_2 = 'Nu este ma', " +
+                    "question_answer_3 = 'Poate este ma', question_correct_answer = 'Ce vrajeala'" +
+                    $"WHERE question_id = {id}";
+
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+
+
+                cmd.Dispose();
+                DisconnectFromDatabase();
+
+                return true;
+
+            }
+            catch (SQLiteException e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        public bool DeleteQuestion(int id)
+        {
+            ConnectToDatabase();
+            try
+            {
+                SQLiteCommand cmd;
+                cmd = _sqlConn.CreateCommand();
+                String sql;
+
+
+                sql = "DELETE FROM Questions " +
+                    $"WHERE question_id = {id}";
+
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+
+
+                cmd.Dispose();
+                DisconnectFromDatabase();
+
+                return true;
+
+            }
+            catch (SQLiteException e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
 
         }
     }
