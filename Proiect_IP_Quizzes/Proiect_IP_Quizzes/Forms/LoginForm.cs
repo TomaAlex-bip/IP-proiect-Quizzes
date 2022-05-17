@@ -13,7 +13,7 @@ namespace Proiect_IP_Quizzes.Forms
 {
     public partial class LoginForm : Form
     {
-        //protected LoginPresenter _presenter;
+        protected LoginPresenter _presenter;
         public LoginForm()
         {
             InitializeComponent();

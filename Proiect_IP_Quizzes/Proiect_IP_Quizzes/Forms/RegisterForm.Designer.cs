@@ -121,7 +121,8 @@
             // 
             // btn_login
             // 
-            this.btn_login.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btn_login.BackColor = System.Drawing.Color.Teal;
+            this.btn_login.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_login.Font = new System.Drawing.Font("DejaVu Math TeX Gyre", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_login.Location = new System.Drawing.Point(467, 310);
             this.btn_login.Name = "btn_login";
@@ -133,7 +134,8 @@
             // 
             // btn_register
             // 
-            this.btn_register.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btn_register.BackColor = System.Drawing.Color.Teal;
+            this.btn_register.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_register.Font = new System.Drawing.Font("DejaVu Math TeX Gyre", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_register.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btn_register.Location = new System.Drawing.Point(216, 248);
