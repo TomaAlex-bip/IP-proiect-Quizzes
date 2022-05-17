@@ -31,7 +31,7 @@ namespace Models
             FinishedQuestions = 0;
             _quizQuestions.Clear();
 
-            List<Question> totalQuestions = DatabaseContext.GetInstance.GetQuestionsOfType(type);
+            List<Question> totalQuestions = DatabaseContext.Instance.GetQuestionsOfType(type);
 
             var random = new Random();
 

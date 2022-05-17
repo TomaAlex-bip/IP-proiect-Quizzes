@@ -15,13 +15,13 @@ namespace Models
 
         }
 
-        public List<Question> GetAllQuestions() => DatabaseContext.GetInstance.GetAllQuestions();
+        public List<Question> GetAllQuestions() => DatabaseContext.Instance.GetAllQuestions();
 
-        public bool AddQuestion(Question question) => DatabaseContext.GetInstance.AddQuestion(question);
+        public bool AddQuestion(Question question) => DatabaseContext.Instance.AddQuestion(question);
 
-        public bool UpdateQuestion(int id, Question question) => DatabaseContext.GetInstance.UpdateQuestion(id, question);
+        public bool UpdateQuestion(int id, Question question) => DatabaseContext.Instance.UpdateQuestion(id, question);
 
-        public bool DeleteQuestion(int id) => DatabaseContext.GetInstance.DeleteQuestion(id);
+        public bool DeleteQuestion(int id) => DatabaseContext.Instance.DeleteQuestion(id);
 
 
     }

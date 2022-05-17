@@ -18,7 +18,7 @@ namespace Models
 
         public User LoginUser(string username, string hash)
         {
-            return DatabaseContext.GetInstance.LoginUser(username, hash);
+            return DatabaseContext.Instance.LoginUser(username, hash);
         }
     }
 }

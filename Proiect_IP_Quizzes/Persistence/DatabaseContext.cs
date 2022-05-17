@@ -16,7 +16,7 @@ namespace Persistence
         //am facut asta sa fie pe toata clasa ca sa pot sa o accesez si in connect si in disconnect
         private SQLiteConnection _sqlConn;
 
-        public static DatabaseContext GetInstance
+        public static DatabaseContext Instance
         {
             get
             {
@@ -28,7 +28,7 @@ namespace Persistence
             }
         }
 
-        public bool ConnectToDatabase()
+        private bool ConnectToDatabase()
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Persistence
             return true;
         }
 
-        public bool DisconnectFromDatabase()
+        private bool DisconnectFromDatabase()
         {
             try
             {
@@ -58,7 +58,7 @@ namespace Persistence
             return true;
         }
 
-        public int LoginUser(string username, string hash)
+        public User LoginUser(string username, string hash)
         {
             int clientID = 0;
             ConnectToDatabase();
@@ -75,7 +75,7 @@ namespace Persistence
                 comm.CommandText = sql;
                 dataReader = comm.ExecuteReader();
 
-                while (dataReader.Read())
+                if (dataReader.Read())
                 {
                     clientID = dataReader.GetInt32(0);
                 }
@@ -84,13 +84,14 @@ namespace Persistence
                 comm.Dispose();
                 DisconnectFromDatabase();
 
+                return new User(clientID, username, hash, 0);
             }
 
             catch (SQLiteException e)
             {
                 Console.WriteLine(e.Message);
             }
-            return clientID;
+            return null;
         }
 
 
@@ -106,7 +107,7 @@ namespace Persistence
 
                 //aici nu prea stiu cum sa facem cu is_admin ala, gen cum o sa putem noi modifica daca sa fie admin sau nu??? si deocamdata am lasat fara is_admin query-ul.
 
-                sql = "INSERT INTO Users(username,hashed_password,is_admin) VALUES ('" + username + "','" + hash + "',1)";
+                sql = $"INSERT INTO Users(username,hashed_password,is_admin) VALUES ('{username}','{hash}', 0)";
 
                 cmd.CommandText = sql;
                 cmd.ExecuteNonQuery();
@@ -137,22 +138,32 @@ namespace Persistence
                 cmd.CommandText = sql;
                 dataReader = cmd.ExecuteReader();
 
-                while (dataReader.Read())
+                int pass = 0;
+                int fail = 0;
+                int total = 0;
+
+
+                if (dataReader.Read())
                 {
-                    var output = dataReader.GetString(0);
+                    pass = dataReader.GetInt32(0);
+                    fail = dataReader.GetInt32(1);
+                    total = dataReader.GetInt32(2);
                 }
 
                 dataReader.Close();
                 cmd.Dispose();
 
                 DisconnectFromDatabase();
+
+                return new Statistic(userID, total, pass, fail);
             }
 
             catch (SQLiteException e)
             {
                 Console.WriteLine(e);
             }
-            return new Statistic();
+
+            return new Statistic(userID, 0, 0, 0);
 
         }
         public List<Attempt> GetUserAttempts(int userID)
@@ -181,7 +192,7 @@ namespace Persistence
                     var wa = dataReader.GetInt32(4);
                     Console.WriteLine(atid + " " + name + " " + attd + " " + ca + " " + wa);
 
-                    Attempt a = new Attempt();
+                    Attempt a = new Attempt(atid, userID, attd, ca, wa);
 
                     attempts.Add(a);
 
@@ -223,10 +234,10 @@ namespace Persistence
                     var qa1 = dataReader.GetString(1);
                     var qa2 = dataReader.GetString(2);
                     var qa3 = dataReader.GetString(3);
-                    var qca = dataReader.GetString(4);
+                    var qca = dataReader.GetInt32(4);
                     Console.WriteLine(qt + " " + qa1 + " " + qa2 + " " + qa3 + " " + qca);
 
-                    Question question = new Question();
+                    Question question = new Question(0, type, qt, qa1, qa2, qa3, qca);
 
                     questions.Add(question);
                 }
@@ -244,7 +255,7 @@ namespace Persistence
             return questions;
         }
 
-        public List<string> GetQuestionsType(string type)
+        public List<string> GetQuestionsType()
         {
             List<string> qtype = new List<string>();
             
@@ -255,7 +266,7 @@ namespace Persistence
                 String sql;
 
 
-                sql = $"SELECT DISTINCT question_type FROM Questions WHERE question_type = '{type}'";
+                sql = $"SELECT DISTINCT question_type FROM Questions";
 
                 cmd = _sqlConn.CreateCommand();
                 cmd.CommandText = sql;
@@ -267,8 +278,6 @@ namespace Persistence
                     Console.WriteLine(qt);
 
                     qtype.Add(qt);
-
-                    //nush aici
 
                 }
 
@@ -309,9 +318,9 @@ namespace Persistence
                     var qa1 = dataReader.GetString(1);
                     var qa2 = dataReader.GetString(2);
                     var qa3 = dataReader.GetString(3);
-                    var qca = dataReader.GetString(4);
+                    var qca = dataReader.GetInt32(4);
 
-                    Question qs = new Question();
+                    Question qs = new Question(0, "", qt, qa1, qa2, qa3, qca);
 
                     allq.Add(qs);
 
@@ -342,7 +351,7 @@ namespace Persistence
 
 
                 sql = "INSERT INTO Questions(question_type,question_text,question_answer_1,question_answer_2,question_answer_3,question_correct_answer) " +
-                    "VALUES ('C#','DADA','NU','DA','DAADAD','YESYESYES')";
+                    $"VALUES ('{question.Type}','{question.Text}','{question.Answer1}','{question.Answer2}','{question.Answer3}', {question.CorrectAnswer})";
 
                 cmd.CommandText = sql;
                 cmd.ExecuteNonQuery();
@@ -361,7 +370,7 @@ namespace Persistence
             }
 
         }
-        public bool UpdateQuestion(int id)
+        public bool UpdateQuestion(int id, Question question)
         {
             ConnectToDatabase();
             try
@@ -372,11 +381,12 @@ namespace Persistence
 
 
                 sql = "UPDATE Questions SET " +
-                    "question_type = 'C#', " +
-                    "question_text = 'Noua schimbare', " +
-                    "question_answer_1 = 'Este ma', " +
-                    "question_answer_2 = 'Nu este ma', " +
-                    "question_answer_3 = 'Poate este ma', question_correct_answer = 'Ce vrajeala'" +
+                    $"question_type = '{question.Type}', " +
+                    $"question_text = '{question.Text}', " +
+                    $"question_answer_1 = '{question.Answer1}', " +
+                    $"question_answer_2 = '{question.Answer2}', " +
+                    $"question_answer_3 = '{question.Answer3}', " +
+                    $"question_correct_answer = {question.CorrectAnswer}" +
                     $"WHERE question_id = {id}";
 
                 cmd.CommandText = sql;

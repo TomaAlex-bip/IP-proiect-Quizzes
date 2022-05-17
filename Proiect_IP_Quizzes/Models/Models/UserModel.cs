@@ -25,7 +25,7 @@ namespace Models
         {
             if(quizAttempted)
             {
-                _userStatistic = DatabaseContext.GetInstance.GetUserStatistics(userId);
+                _userStatistic = DatabaseContext.Instance.GetUserStatistics(userId);
                 quizAttempted = false;
             }
             
@@ -36,7 +36,7 @@ namespace Models
         {
             if(quizAttempted)
             {
-                _userAttempts = DatabaseContext.GetInstance.GetUserAttempts(userId);
+                _userAttempts = DatabaseContext.Instance.GetUserAttempts(userId);
                 quizAttempted = false;
             }
 
@@ -45,7 +45,7 @@ namespace Models
 
         public List<string> GetQuestionTypes()
         {
-            return DatabaseContext.GetInstance.GetQuestionTypes();
+            return DatabaseContext.Instance.GetQuestionsType();
         }
     }
 }
