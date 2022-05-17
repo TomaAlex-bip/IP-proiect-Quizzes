@@ -1,21 +1,21 @@
 ﻿using Entities;
 using Models;
-using Proiect_IP_Quizzes.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils.Interfaces;
 
 namespace Presenters.Presenters
 {
     public class AdminPresenter
     {
 
-        private AdminForm _view;
+        private IAdminView _view;
         private AdminModel _model;
 
-        public AdminPresenter(AdminForm view, AdminModel model)
+        public AdminPresenter(IAdminView view, AdminModel model)
         {
             _view = view;
             _model = model;

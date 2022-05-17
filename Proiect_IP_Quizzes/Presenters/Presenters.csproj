@@ -59,9 +59,9 @@
       <Project>{33761ed0-c9bf-4e07-9e2b-0592e680af06}</Project>
       <Name>Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Proiect_IP_Quizzes\Proiect_IP_Quizzes.csproj">
-      <Project>{3e383c5c-107b-4782-b6d2-2f6a905e517e}</Project>
-      <Name>Proiect_IP_Quizzes</Name>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{3d702c50-3536-46f6-aba7-5330bea23627}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

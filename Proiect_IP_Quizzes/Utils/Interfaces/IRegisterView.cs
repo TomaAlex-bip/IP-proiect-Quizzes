@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Presenters.Presenters
+namespace Utils.Interfaces
 {
-    public class MainPresenter
+    public interface IRegisterView
     {
     }
 }
