@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Presenters.Presenters;
 
 namespace Proiect_IP_Quizzes
 {
     public partial class MainForm : Form
     {
+        private MainPresenter _presenter;
         private Button _currentButton;
-        private Form _activeForm;
+        private Form _currentForm;
         public MainForm()
         {
             InitializeComponent();
@@ -35,12 +37,12 @@ namespace Proiect_IP_Quizzes
 
         private void OpenChildForm(Form childForm, object btnSender)
         {
-            if(_activeForm != null)
+            if(_currentForm != null)
             {
-                _activeForm.Close();
+                _currentForm.Close();
             }
             ActivateButton(btnSender);
-            _activeForm = childForm;
+            _currentForm = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
@@ -63,30 +65,34 @@ namespace Proiect_IP_Quizzes
                 }
             }
         }
-
-        private void btn_login_Click(object sender, EventArgs e)
+        private void OpenLoginForm(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.LoginForm(),sender);
+            _currentForm = new Forms.LoginForm();
+            OpenChildForm(_currentForm, sender);
         }
 
-        private void btn_register_Click(object sender, EventArgs e)
+        private void OpenRegisterForm(object sender, EventArgs e)
         {
             OpenChildForm(new Forms.RegisterForm(), sender);
         }
 
-        private void btn_user_Click(object sender, EventArgs e)
+        private void OpenUserForm(object sender, EventArgs e)
         {
             OpenChildForm(new Forms.UserForm(), sender);
         }
 
-        private void btn_admin_Click(object sender, EventArgs e)
+        private void OpenAdminForm(object sender, EventArgs e)
         {
             OpenChildForm(new Forms.AdminForm(), sender);
         }
 
-        private void btn_logout_Click(object sender, EventArgs e)
+        private void Logout(object sender, EventArgs e)
         {
             ActivateButton(sender);
+        }
+        private void SetPresenter(MainPresenter presenter)
+        {
+            _presenter = presenter;
         }
     }
 }

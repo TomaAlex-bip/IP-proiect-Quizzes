@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Presenters.Presenters
 {
-    internal class MainPresenter
+    public class MainPresenter
     {
     }
 }
