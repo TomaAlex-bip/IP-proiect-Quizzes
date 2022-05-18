@@ -67,11 +67,11 @@ namespace Proiect_IP_Quizzes
         }
         private void OpenLoginForm(object sender, EventArgs e)
         {
-            _currentForm = new Forms.LoginForm();
-            OpenChildForm(_currentForm, sender);
+            _currentForm = new Forms.LoginForm(this);
+            OpenChildForm(new Forms.LoginForm(this), sender);
         }
 
-        private void OpenRegisterForm(object sender, EventArgs e)
+        public void OpenRegisterForm(object sender, EventArgs e)
         {
             OpenChildForm(new Forms.RegisterForm(), sender);
         }

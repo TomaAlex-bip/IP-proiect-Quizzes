@@ -18,9 +18,12 @@ namespace Proiect_IP_Quizzes.Forms
 
         protected LoginPresenter _presenter;
 
-        public LoginForm()
+        private MainForm _mainForm;
+
+        public LoginForm(MainForm mainForm)
         {
             InitializeComponent();
+            _mainForm = mainForm;
         }
 
         
@@ -34,6 +37,7 @@ namespace Proiect_IP_Quizzes.Forms
         public void OnRegisterClick(object sender, EventArgs e)
         {
             OnRegisterEvent?.Invoke(this, e);
+            _mainForm.OpenRegisterForm(null, null);
         }
 
         
