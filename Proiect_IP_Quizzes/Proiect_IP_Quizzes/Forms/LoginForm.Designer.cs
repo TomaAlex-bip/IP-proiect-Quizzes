@@ -99,7 +99,7 @@
             // 
             // btn_register
             // 
-            this.btn_register.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btn_register.BackColor = System.Drawing.Color.Teal;
             this.btn_register.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_register.Font = new System.Drawing.Font("DejaVu Math TeX Gyre", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_register.Location = new System.Drawing.Point(456, 312);
@@ -113,7 +113,7 @@
             // 
             // btn_login
             // 
-            this.btn_login.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btn_login.BackColor = System.Drawing.Color.Teal;
             this.btn_login.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_login.Font = new System.Drawing.Font("DejaVu Math TeX Gyre", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_login.Location = new System.Drawing.Point(220, 248);
@@ -129,11 +129,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("DejaVu Math TeX Gyre", 9.749999F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label1.Location = new System.Drawing.Point(163, 68);
+            this.label1.Font = new System.Drawing.Font("DejaVu Math TeX Gyre", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.label1.Location = new System.Drawing.Point(143, 66);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(248, 55);
+            this.label1.Size = new System.Drawing.Size(292, 64);
             this.label1.TabIndex = 9;
             this.label1.Text = "Please log in to test your knolege!";
             // 

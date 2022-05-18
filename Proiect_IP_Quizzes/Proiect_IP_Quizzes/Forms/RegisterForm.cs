@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Presenters.Presenters;
 
 namespace Proiect_IP_Quizzes.Forms
 {
     public partial class RegisterForm : Form
     {
+        protected RegisterPresenter _presenter;
         public RegisterForm()
         {
             InitializeComponent();

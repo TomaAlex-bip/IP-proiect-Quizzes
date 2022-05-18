@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.Button btn_nextquestion;
             this.lbl_q = new System.Windows.Forms.Label();
             this.lbl_questionText = new System.Windows.Forms.Label();
             this.radiobtn_first = new System.Windows.Forms.RadioButton();
             this.radiobtn_second = new System.Windows.Forms.RadioButton();
             this.radiobtn_third = new System.Windows.Forms.RadioButton();
-            this.btn_nextquestion = new System.Windows.Forms.Button();
             this.lbl_questionNumber = new System.Windows.Forms.Label();
+            btn_nextquestion = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbl_q
@@ -95,15 +96,17 @@
             // 
             // btn_nextquestion
             // 
-            this.btn_nextquestion.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btn_nextquestion.Font = new System.Drawing.Font("DejaVu Math TeX Gyre", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_nextquestion.Location = new System.Drawing.Point(303, 369);
-            this.btn_nextquestion.Name = "btn_nextquestion";
-            this.btn_nextquestion.Size = new System.Drawing.Size(169, 69);
-            this.btn_nextquestion.TabIndex = 5;
-            this.btn_nextquestion.Text = "next question ->";
-            this.btn_nextquestion.UseVisualStyleBackColor = false;
-            this.btn_nextquestion.Click += new System.EventHandler(this.OnNextQuestionClick);
+            btn_nextquestion.BackColor = System.Drawing.Color.Teal;
+            btn_nextquestion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btn_nextquestion.Font = new System.Drawing.Font("DejaVu Math TeX Gyre", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btn_nextquestion.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btn_nextquestion.Location = new System.Drawing.Point(303, 369);
+            btn_nextquestion.Name = "btn_nextquestion";
+            btn_nextquestion.Size = new System.Drawing.Size(169, 69);
+            btn_nextquestion.TabIndex = 5;
+            btn_nextquestion.Text = "next question ->";
+            btn_nextquestion.UseVisualStyleBackColor = false;
+            btn_nextquestion.Click += new System.EventHandler(this.OnNextQuestionClick);
             // 
             // lbl_questionNumber
             // 
@@ -121,7 +124,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lbl_questionNumber);
-            this.Controls.Add(this.btn_nextquestion);
+            this.Controls.Add(btn_nextquestion);
             this.Controls.Add(this.radiobtn_third);
             this.Controls.Add(this.radiobtn_second);
             this.Controls.Add(this.radiobtn_first);
@@ -141,7 +144,6 @@
         private System.Windows.Forms.RadioButton radiobtn_first;
         private System.Windows.Forms.RadioButton radiobtn_second;
         private System.Windows.Forms.RadioButton radiobtn_third;
-        private System.Windows.Forms.Button btn_nextquestion;
         private System.Windows.Forms.Label lbl_questionNumber;
     }
 }
