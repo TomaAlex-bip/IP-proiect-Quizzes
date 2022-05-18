@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Presenters.PresenterFactory;
 using Presenters.Presenters;
+using Utils.Interfaces;
 
 namespace Proiect_IP_Quizzes.Forms
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : Form, ILoginView
     {
         public delegate void OnRegisterEventHandler(object sender, EventArgs e);
         public event OnRegisterEventHandler OnRegisterEvent;
@@ -24,6 +26,7 @@ namespace Proiect_IP_Quizzes.Forms
         {
             InitializeComponent();
             _mainForm = mainForm;
+            SetPresenter(PresenterFactory.Instance.GetLoginPresenter(this));
         }
 
         
@@ -31,6 +34,9 @@ namespace Proiect_IP_Quizzes.Forms
         {
             var loginUsername = txt_username.Text;
             var loginPassword = txt_password.Text;
+
+            var hash = loginPassword;
+            _presenter.LoginUser(loginUsername,hash);
             
         }
 

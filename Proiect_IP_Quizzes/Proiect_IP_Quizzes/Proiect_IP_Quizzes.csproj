@@ -120,9 +120,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{5D2D5894-C5EC-4C45-8751-2A9AB32E609F}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Presenters\Presenters.csproj">
       <Project>{db27a697-e34f-4541-acf6-ce6c230dbdc5}</Project>
       <Name>Presenters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{3d702c50-3536-46f6-aba7-5330bea23627}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

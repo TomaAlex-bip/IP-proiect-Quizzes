@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Presenters.PresenterFactory;
 using Presenters.Presenters;
 
 namespace Proiect_IP_Quizzes
@@ -19,6 +20,7 @@ namespace Proiect_IP_Quizzes
         public MainForm()
         {
             InitializeComponent();
+            //SetPresenter(PresenterFactory.Instance.Get)
         }
 
         private void ActivateButton(object btnSender) //modific culoarea si marimea scrisului din butonul selectat
