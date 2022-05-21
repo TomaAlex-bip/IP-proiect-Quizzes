@@ -43,5 +43,10 @@ namespace Presenters.Presenters
             _view.OpenLoginForm();
         }
 
+        public User GetCurrentUser()
+        {
+            return _model.CurrentUser;
+        }
+
     }
 }

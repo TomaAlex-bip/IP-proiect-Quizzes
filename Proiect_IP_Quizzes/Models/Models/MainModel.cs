@@ -4,6 +4,7 @@ namespace Models
 {
     public class MainModel
     {
+        public User CurrentUser => _currentUser;
 
         private User _currentUser;
 
