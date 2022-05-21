@@ -8,5 +8,6 @@ namespace Utils.Interfaces
 {
     public interface IMainView
     {
+        void OpenRegisterForm();
     }
 }

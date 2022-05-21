@@ -1,10 +1,4 @@
-﻿using Entities;
-using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Models;
 using Utils.Interfaces;
 
 namespace Presenters.Presenters
@@ -13,16 +7,33 @@ namespace Presenters.Presenters
     {
         private ILoginView _view;
         private LoginModel _model;
+        private MainPresenter _mainPresenter;
 
-        public LoginPresenter(ILoginView view, LoginModel model)
+        public LoginPresenter(ILoginView view, LoginModel model, MainPresenter mainPresenter)
         {
             _view = view;
             _model = model;
+            _mainPresenter = mainPresenter;
         }
 
-        public User LoginUser(string username, string hash)
+        public void LoginUser(string username, string hash)
         {
-            return _model.LoginUser(username, hash);
+            var user = _model.VerifyUser(username, hash);
+            
+            if(user == null)
+            {
+                _view.LoginFail(username);
+            }
+            else
+            {
+                _view.LoginSuccess(user.Username);
+                _mainPresenter.LoginUser(user);
+            }
+        }
+
+        public void OpenRegisterPage()
+        {
+            _mainPresenter.OpenRegisterPage();
         }
     }
 }

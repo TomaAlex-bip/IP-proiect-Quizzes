@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Presenters.PresenterFactory;
+﻿using Presenters.PresenterFactory;
 using Presenters.Presenters;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+using Utils.Interfaces;
 
 namespace Proiect_IP_Quizzes
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IMainView
     {
         private MainPresenter _presenter;
         private Button _currentButton;
         private Form _currentForm;
+
+        public MainPresenter Presenter => _presenter;
+
         public MainForm()
         {
             InitializeComponent();
-            //SetPresenter(PresenterFactory.Instance.Get)
+            SetPresenter(PresenterFactory.Instance.GetMainPresenter(this));
         }
 
         private void ActivateButton(object btnSender) //modific culoarea si marimea scrisului din butonul selectat
@@ -67,9 +65,9 @@ namespace Proiect_IP_Quizzes
                 }
             }
         }
+
         private void OpenLoginForm(object sender, EventArgs e)
         {
-            _currentForm = new Forms.LoginForm(this);
             OpenChildForm(new Forms.LoginForm(this), sender);
         }
 
@@ -92,9 +90,15 @@ namespace Proiect_IP_Quizzes
         {
             ActivateButton(sender);
         }
+
         private void SetPresenter(MainPresenter presenter)
         {
             _presenter = presenter;
+        }
+
+        public void OpenRegisterForm()
+        {
+            OpenRegisterForm(btn_register, null);
         }
     }
 }

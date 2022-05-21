@@ -1,52 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Presenters.PresenterFactory;
+﻿using Presenters.PresenterFactory;
 using Presenters.Presenters;
+using System;
+using System.Windows.Forms;
+using Utils;
 using Utils.Interfaces;
 
 namespace Proiect_IP_Quizzes.Forms
 {
     public partial class LoginForm : Form, ILoginView
     {
-        public delegate void OnRegisterEventHandler(object sender, EventArgs e);
-        public event OnRegisterEventHandler OnRegisterEvent;
-
-        protected LoginPresenter _presenter;
-
+        private LoginPresenter _presenter;
         private MainForm _mainForm;
 
         public LoginForm(MainForm mainForm)
         {
             InitializeComponent();
             _mainForm = mainForm;
-            SetPresenter(PresenterFactory.Instance.GetLoginPresenter(this));
+            SetPresenter(PresenterFactory.Instance.GetLoginPresenter(this, _mainForm.Presenter));
         }
 
-        
+        public void LoginFail(string username)
+        {
+            MessageBox.Show("Username si parola incorecte!");
+        }
+
+        public void LoginSuccess(string username)
+        {
+            MessageBox.Show($"Logat cu succes ca user: {username}");
+        }
+
         public void OnLoginClick(object sender, EventArgs e)
         {
             var loginUsername = txt_username.Text;
             var loginPassword = txt_password.Text;
 
-            var hash = loginPassword;
-            _presenter.LoginUser(loginUsername,hash);
-            
+            var hash = Cryptography.HashString(loginPassword);
+
+            _presenter.LoginUser(loginUsername, hash);
         }
 
         public void OnRegisterClick(object sender, EventArgs e)
         {
-            OnRegisterEvent?.Invoke(this, e);
-            _mainForm.OpenRegisterForm(null, null);
+            _presenter.OpenRegisterPage();
         }
-
-        
 
         public void SetPresenter(LoginPresenter presenter)
         {

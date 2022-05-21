@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Utils.Interfaces
+﻿namespace Utils.Interfaces
 {
     public interface ILoginView
     {
+        void LoginFail(string username);
+
+        void LoginSuccess(string username);
+
+        
     }
 }

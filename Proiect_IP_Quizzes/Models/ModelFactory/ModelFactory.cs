@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Models.ModelFactory
 {
     public class ModelFactory
     {
         private static ModelFactory _instance;
+
+        private static MainModel _mainModelInstance;
 
         public static ModelFactory Instance { get { return _instance ?? (_instance = new ModelFactory()); } }
 
@@ -22,5 +19,14 @@ namespace Models.ModelFactory
 
         public AdminModel GetAdminModel() => new AdminModel();
 
+        public MainModel GetMainModel()
+        {
+            if(_mainModelInstance == null)
+            {
+                _mainModelInstance = new MainModel();
+            }
+
+            return _mainModelInstance;
+        }
     }
 }
