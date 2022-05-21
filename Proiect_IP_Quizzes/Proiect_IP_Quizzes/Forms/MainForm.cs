@@ -89,6 +89,7 @@ namespace Proiect_IP_Quizzes
         private void Logout(object sender, EventArgs e)
         {
             ActivateButton(sender);
+            _presenter.LogoutUser();
         }
 
         private void SetPresenter(MainPresenter presenter)
@@ -99,6 +100,21 @@ namespace Proiect_IP_Quizzes
         public void OpenRegisterForm()
         {
             OpenRegisterForm(btn_register, null);
+        }
+
+        public void OpenLoginForm()
+        {
+            OpenLoginForm(btn_login, null);
+        }
+
+        public void NotifyLogoutUser()
+        {
+            MessageBox.Show("Te-ai delogat cu succes!");
+        }
+
+        public void OpenUserForm()
+        {
+            OpenUserForm(btn_user, null);
         }
     }
 }

@@ -18,6 +18,15 @@ namespace Presenters.Presenters
         public void LoginUser(User user)
         {
             _model.UpdateCurrentUser(user);
+            _view.OpenUserForm();
+            
+        }
+
+        public void LogoutUser()
+        {
+            _model.UpdateCurrentUser(null);
+            _view.NotifyLogoutUser();
+            _view.OpenLoginForm();
         }
 
         public void RegisterUser(User user)
