@@ -17,15 +17,20 @@ namespace Presenters.PresenterFactory
         private static MainPresenter _mainPresenterInstance;
         public static PresenterFactory Instance => _instance ?? (_instance = new PresenterFactory());
 
-        public LoginPresenter GetLoginPresenter(ILoginView view, MainPresenter mainPresenter) => new LoginPresenter(view, ModelFactory.Instance.GetLoginModel(), mainPresenter);
+        public LoginPresenter GetLoginPresenter(ILoginView view, MainPresenter mainPresenter) => 
+            new LoginPresenter(view, ModelFactory.Instance.GetLoginModel(), mainPresenter);
 
-        public RegisterPresenter GetRegisterPresenter(IRegisterView view) => new RegisterPresenter(view, ModelFactory.Instance.GetRegisterModel());
+        public RegisterPresenter GetRegisterPresenter(IRegisterView view, MainPresenter mainPresenter) => 
+            new RegisterPresenter(view, ModelFactory.Instance.GetRegisterModel(), mainPresenter);
 
-        public UserPresenter GetUserPresenter(IUserView view) => new UserPresenter(view, ModelFactory.Instance.GetUserModel());
+        public UserPresenter GetUserPresenter(IUserView view) => 
+            new UserPresenter(view, ModelFactory.Instance.GetUserModel());
 
-        public QuizPresenter GetQuizPresenter(IQuizView view) => new QuizPresenter(view, ModelFactory.Instance.GetQuizModel());
+        public QuizPresenter GetQuizPresenter(IQuizView view) => 
+            new QuizPresenter(view, ModelFactory.Instance.GetQuizModel());
 
-        public AdminPresenter GetAdminPresenter(IAdminView view) => new AdminPresenter(view, ModelFactory.Instance.GetAdminModel());
+        public AdminPresenter GetAdminPresenter(IAdminView view) => 
+            new AdminPresenter(view, ModelFactory.Instance.GetAdminModel());
 
         public MainPresenter GetMainPresenter(IMainView view)
         {

@@ -1,9 +1,4 @@
 ﻿using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utils.Interfaces;
 
 namespace Presenters.Presenters
@@ -12,16 +7,32 @@ namespace Presenters.Presenters
     {
         private RegisterModel _model;
         private IRegisterView _view;
+        private MainPresenter _mainPresenter;
 
-        public RegisterPresenter(IRegisterView view, RegisterModel model)
+        public RegisterPresenter(IRegisterView view, RegisterModel model, MainPresenter mainPresenter)
         {
             _view = view;
             _model = model;
+            _mainPresenter = mainPresenter;
         }
 
-        public bool RegisterUser(string username, string hash)
+        public void RegisterUser(string username, string hash)
         {
-            return _model.RegisterUser(username, hash);
+            var status = _model.RegisterUser(username, hash);
+            if(status == false)
+            {
+                _view.RegisterFailed(username);
+            }
+            else
+            {
+                _view.RegisterSucceeded(username);
+                _mainPresenter.RegisterUser();
+            }
+        }
+
+        public void OpenLoginPage()
+        {
+            _mainPresenter.OpenLoginPage();
         }
     }
 }

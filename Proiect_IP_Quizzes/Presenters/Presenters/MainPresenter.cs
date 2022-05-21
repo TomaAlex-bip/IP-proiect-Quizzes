@@ -19,7 +19,6 @@ namespace Presenters.Presenters
         {
             _model.UpdateCurrentUser(user);
             _view.OpenUserForm();
-            
         }
 
         public void LogoutUser()
@@ -29,14 +28,19 @@ namespace Presenters.Presenters
             _view.OpenLoginForm();
         }
 
-        public void RegisterUser(User user)
+        public void RegisterUser()
         {
-            
+            _view.OpenLoginForm();
         }
 
         public void OpenRegisterPage()
         {
             _view.OpenRegisterForm();
+        }
+
+        public void OpenLoginPage()
+        {
+            _view.OpenLoginForm();
         }
 
     }

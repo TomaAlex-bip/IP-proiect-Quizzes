@@ -19,12 +19,12 @@ namespace Proiect_IP_Quizzes.Forms
             SetPresenter(PresenterFactory.Instance.GetLoginPresenter(this, _mainForm.Presenter));
         }
 
-        public void LoginFail(string username)
+        public void LoginFailed(string username)
         {
             MessageBox.Show("Username si parola incorecte!");
         }
 
-        public void LoginSuccess(string username)
+        public void LoginSucceeded(string username)
         {
             MessageBox.Show($"Logat cu succes ca user: {username}");
         }

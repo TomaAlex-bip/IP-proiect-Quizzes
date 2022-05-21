@@ -22,11 +22,11 @@ namespace Presenters.Presenters
             
             if(user == null)
             {
-                _view.LoginFail(username);
+                _view.LoginFailed(username);
             }
             else
             {
-                _view.LoginSuccess(user.Username);
+                _view.LoginSucceeded(user.Username);
                 _mainPresenter.LoginUser(user);
             }
         }

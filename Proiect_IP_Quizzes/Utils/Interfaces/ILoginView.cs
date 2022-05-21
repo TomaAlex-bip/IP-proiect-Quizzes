@@ -2,10 +2,8 @@
 {
     public interface ILoginView
     {
-        void LoginFail(string username);
+        void LoginFailed(string username);
 
-        void LoginSuccess(string username);
-
-        
+        void LoginSucceeded(string username);
     }
 }

@@ -73,7 +73,7 @@ namespace Proiect_IP_Quizzes
 
         public void OpenRegisterForm(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.RegisterForm(), sender);
+            OpenChildForm(new Forms.RegisterForm(this), sender);
         }
 
         private void OpenUserForm(object sender, EventArgs e)

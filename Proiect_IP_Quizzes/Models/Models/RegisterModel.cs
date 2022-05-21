@@ -1,9 +1,4 @@
 ﻿using Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Models
 {
@@ -17,6 +12,7 @@ namespace Models
 
         public bool RegisterUser(string username, string hash)
         {
+            return true;
             return DatabaseContext.Instance.RegisterUser(username, hash);
         }
     }
