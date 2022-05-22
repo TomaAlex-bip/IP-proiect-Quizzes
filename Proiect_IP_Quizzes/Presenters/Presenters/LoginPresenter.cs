@@ -19,8 +19,8 @@ namespace Presenters.Presenters
         public void LoginUser(string username, string hash)
         {
             var user = _model.VerifyUser(username, hash);
-            
-            if(user == null)
+
+            if (user == null)
             {
                 _view.LoginFailed(username);
             }

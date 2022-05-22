@@ -23,9 +23,9 @@ namespace Proiect_IP_Quizzes
 
         private void ActivateButton(object btnSender) //modific culoarea si marimea scrisului din butonul selectat
         {
-            if(btnSender != null)
+            if (btnSender != null)
             {
-                if(_currentButton != (Button)btnSender)
+                if (_currentButton != (Button)btnSender)
                 {
                     DisableButton();
                     _currentButton = (Button)btnSender;
@@ -37,7 +37,7 @@ namespace Proiect_IP_Quizzes
 
         private void OpenChildForm(Form childForm, object btnSender)
         {
-            if(_currentForm != null)
+            if (_currentForm != null)
             {
                 _currentForm.Close();
             }
@@ -56,7 +56,7 @@ namespace Proiect_IP_Quizzes
 
         private void DisableButton() //aduc butonul inapoi la setarile initiale
         {
-            foreach( Control previousBtn in panelMenu.Controls)
+            foreach (Control previousBtn in panelMenu.Controls)
             {
                 if (previousBtn.GetType() == typeof(Button))
                 {
@@ -83,7 +83,7 @@ namespace Proiect_IP_Quizzes
 
         private void OpenAdminForm(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.AdminForm(), sender);
+            OpenChildForm(new Forms.AdminForm(this), sender);
         }
 
         private void Logout(object sender, EventArgs e)
@@ -110,6 +110,30 @@ namespace Proiect_IP_Quizzes
         public void NotifyLogoutUser()
         {
             MessageBox.Show("Te-ai delogat cu succes!");
+        }
+        public void NotifyCantLogoutUser()
+        {
+            MessageBox.Show("Intai trebuie sa va logati!");
+        }
+
+        /*public void NotifyLoggedIn()
+        {
+            MessageBox.Show("Sunteti deja logat. Doriti sa va delogati?");
+        }*/
+
+        public bool NotifyAlreadyLoggedIn()
+        {
+            DialogResult AlreadyLoggedIn = MessageBox.Show("Sunteti deja logat. Doriti sa va delogati?", "Atentie!", MessageBoxButtons.YesNo);
+            if (AlreadyLoggedIn == DialogResult.Yes)
+            {
+                return true;
+            }
+            else if (AlreadyLoggedIn == DialogResult.No)
+            {
+                //nimic?
+                return false;
+            }
+            return false;
         }
 
         public void OpenUserForm()

@@ -17,28 +17,28 @@ namespace Presenters.PresenterFactory
         private static MainPresenter _mainPresenterInstance;
         public static PresenterFactory Instance => _instance ?? (_instance = new PresenterFactory());
 
-        public LoginPresenter GetLoginPresenter(ILoginView view, MainPresenter mainPresenter) => 
+        public LoginPresenter GetLoginPresenter(ILoginView view, MainPresenter mainPresenter) =>
             new LoginPresenter(view, ModelFactory.Instance.GetLoginModel(), mainPresenter);
 
-        public RegisterPresenter GetRegisterPresenter(IRegisterView view, MainPresenter mainPresenter) => 
+        public RegisterPresenter GetRegisterPresenter(IRegisterView view, MainPresenter mainPresenter) =>
             new RegisterPresenter(view, ModelFactory.Instance.GetRegisterModel(), mainPresenter);
 
-        public UserPresenter GetUserPresenter(IUserView view, MainPresenter mainPresenter) => 
+        public UserPresenter GetUserPresenter(IUserView view, MainPresenter mainPresenter) =>
             new UserPresenter(view, ModelFactory.Instance.GetUserModel(), mainPresenter);
 
-        public QuizPresenter GetQuizPresenter(IQuizView view) => 
+        public QuizPresenter GetQuizPresenter(IQuizView view) =>
             new QuizPresenter(view, ModelFactory.Instance.GetQuizModel());
 
-        public AdminPresenter GetAdminPresenter(IAdminView view) => 
-            new AdminPresenter(view, ModelFactory.Instance.GetAdminModel());
+        public AdminPresenter GetAdminPresenter(IAdminView view, MainPresenter mainPresenter) =>
+            new AdminPresenter(view, ModelFactory.Instance.GetAdminModel(), mainPresenter);
 
         public MainPresenter GetMainPresenter(IMainView view)
         {
-            if(_mainPresenterInstance == null)
+            if (_mainPresenterInstance == null)
             {
                 _mainPresenterInstance = new MainPresenter(view, ModelFactory.Instance.GetMainModel());
             }
-            
+
             return _mainPresenterInstance;
         }
     }

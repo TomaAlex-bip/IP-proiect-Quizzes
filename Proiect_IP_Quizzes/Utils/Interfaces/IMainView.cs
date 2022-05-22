@@ -9,6 +9,10 @@
         void OpenUserForm();
 
         void NotifyLogoutUser();
+        void NotifyCantLogoutUser();
+
+        bool NotifyAlreadyLoggedIn();
+        //void NotifyLoggedIn();
 
     }
 }

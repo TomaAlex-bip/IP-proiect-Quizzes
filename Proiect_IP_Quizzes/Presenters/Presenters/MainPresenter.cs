@@ -23,8 +23,15 @@ namespace Presenters.Presenters
 
         public void LogoutUser()
         {
-            _model.UpdateCurrentUser(null);
-            _view.NotifyLogoutUser();
+            if (_model.CurrentUser != null)
+            {
+                _model.UpdateCurrentUser(null);
+                _view.NotifyLogoutUser();
+            }
+            else
+            {
+                _view.NotifyCantLogoutUser();
+            }
             _view.OpenLoginForm();
         }
 
@@ -34,13 +41,21 @@ namespace Presenters.Presenters
         }
 
         public void OpenRegisterPage()
-        {
+        {//butonu din login de register
             _view.OpenRegisterForm();
         }
 
         public void OpenLoginPage()
-        {
-            _view.OpenLoginForm();
+        {//butonu din register de login
+            if (GetCurrentUser() != null)
+            {
+                if (_view.NotifyAlreadyLoggedIn())
+                {
+                    _model.UpdateCurrentUser(null);
+                    _view.OpenLoginForm();
+                }
+            }
+            else _view.OpenLoginForm();
         }
 
         public User GetCurrentUser()
