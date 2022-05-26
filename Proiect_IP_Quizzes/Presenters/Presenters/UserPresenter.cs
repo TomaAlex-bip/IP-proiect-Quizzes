@@ -18,15 +18,28 @@ namespace Presenters.Presenters
             _mainPresenter = mainPresenter;
         }
 
+        public bool VerifyLogin()
+        {
+            if (_mainPresenter.GetCurrentUser() == null)
+                return false;
+            return true;
+        }
+
         public void InitView()
         {
             var currentUser = _mainPresenter.GetCurrentUser();
             if (currentUser == null)
-                return;
+            {
 
-            var statistics = _model.GetUserStatistics(currentUser.Id);
-            var attempts = _model.GetUserAttempts(currentUser.Id);
-            var questionTypes = _model.GetQuestionTypes();
+                //_view.OpenLoginForm();
+                return;
+            }
+
+            _view.WelcomeLabelUsername(currentUser.Username);
+            //var statistics = _model.GetUserStatistics(currentUser.Id);
+            //var attempts = _model.GetUserAttempts(currentUser.Id);
+            //var questionTypes = _model.GetQuestionTypes();
+
 
             // TODO: insert values in textboxes
         }

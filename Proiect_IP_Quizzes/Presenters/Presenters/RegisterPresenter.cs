@@ -19,7 +19,7 @@ namespace Presenters.Presenters
         public void RegisterUser(string username, string hash)
         {
             var status = _model.RegisterUser(username, hash);
-            if(status == false)
+            if (status == false)
             {
                 _view.RegisterFailed(username);
             }

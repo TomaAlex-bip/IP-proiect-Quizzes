@@ -8,5 +8,7 @@ namespace Utils.Interfaces
 {
     public interface IUserView
     {
+        void NotifyNotLoggedIn();
+        void WelcomeLabelUsername(string Username);
     }
 }
