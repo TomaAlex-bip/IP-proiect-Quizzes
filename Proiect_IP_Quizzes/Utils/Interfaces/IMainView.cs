@@ -8,7 +8,15 @@
 
         void OpenUserForm();
 
+        void OpenAdminForm();
+
         void NotifyLogoutUser();
+
+        void NotifyNotLoggedIn();
+
+        void NotifyAlreadyLoggedIn();
+
+        void NotifyRestrictedPermission();
 
     }
 }

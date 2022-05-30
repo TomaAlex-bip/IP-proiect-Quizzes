@@ -21,6 +21,51 @@ namespace Proiect_IP_Quizzes
             SetPresenter(PresenterFactory.Instance.GetMainPresenter(this));
         }
 
+        public void OpenRegisterForm()
+        {
+            OpenChildForm(new Forms.RegisterForm(this), btn_register);
+        }
+
+        public void OpenLoginForm()
+        {
+            OpenChildForm(new Forms.LoginForm(this), btn_login);
+        }
+
+        public void NotifyLogoutUser()
+        {
+            MessageBox.Show("Te-ai delogat cu succes!");
+        }
+
+        public void OpenUserForm()
+        {
+            OpenChildForm(new Forms.UserForm(), btn_user);
+        }
+
+        public void OpenAdminForm()
+        {
+            OpenChildForm(new Forms.AdminForm(), btn_admin);
+        }
+
+        public void NotifyNotLoggedIn()
+        {
+            MessageBox.Show("Nu esti logat!");
+        }
+
+        public void NotifyRestrictedPermission()
+        {
+            MessageBox.Show("Nu ai permisiune pentru acest meniu!");
+        }
+
+        public void OpenRegisterForm(object sender, EventArgs e)
+        {
+            _presenter.OpenRegisterPage();
+        }
+
+        public void NotifyAlreadyLoggedIn()
+        {
+            MessageBox.Show("Esti deja logat!");
+        }
+
         private void ActivateButton(object btnSender) //modific culoarea si marimea scrisului din butonul selectat
         {
             if(btnSender != null)
@@ -68,22 +113,17 @@ namespace Proiect_IP_Quizzes
 
         private void OpenLoginForm(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.LoginForm(this), sender);
-        }
-
-        public void OpenRegisterForm(object sender, EventArgs e)
-        {
-            OpenChildForm(new Forms.RegisterForm(this), sender);
+            _presenter.OpenLoginPage();
         }
 
         private void OpenUserForm(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.UserForm(), sender);
+            _presenter.OpenUserPage();
         }
 
         private void OpenAdminForm(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.AdminForm(), sender);
+            _presenter.OpenAdminPage();
         }
 
         private void Logout(object sender, EventArgs e)
@@ -97,24 +137,6 @@ namespace Proiect_IP_Quizzes
             _presenter = presenter;
         }
 
-        public void OpenRegisterForm()
-        {
-            OpenRegisterForm(btn_register, null);
-        }
-
-        public void OpenLoginForm()
-        {
-            OpenLoginForm(btn_login, null);
-        }
-
-        public void NotifyLogoutUser()
-        {
-            MessageBox.Show("Te-ai delogat cu succes!");
-        }
-
-        public void OpenUserForm()
-        {
-            OpenUserForm(btn_user, null);
-        }
+        
     }
 }
