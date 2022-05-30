@@ -6,6 +6,19 @@ namespace Presenters.Presenters
 {
     public class MainPresenter
     {
+        public bool IsLoggedIn { get => _model.CurrentUser != null; }
+        public bool IsAdmin 
+        { 
+            get
+            {
+                if(_model.CurrentUser != null && _model.CurrentUser.IsAdmin == 1)
+                {
+                    return true;
+                }
+                return false;
+            } 
+        }
+
         private MainModel _model;
         private IMainView _view;
 

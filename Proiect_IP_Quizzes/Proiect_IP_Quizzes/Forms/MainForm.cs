@@ -19,6 +19,7 @@ namespace Proiect_IP_Quizzes
         {
             InitializeComponent();
             SetPresenter(PresenterFactory.Instance.GetMainPresenter(this));
+            UpdateActiveButtons();
         }
 
         public void OpenRegisterForm()
@@ -97,6 +98,7 @@ namespace Proiect_IP_Quizzes
             childForm.Show();
             lbl_title.Text = childForm.Text; //schimbam titlul din header
 
+            UpdateActiveButtons();
         }
 
         private void DisableButton() //aduc butonul inapoi la setarile initiale
@@ -137,6 +139,33 @@ namespace Proiect_IP_Quizzes
             _presenter = presenter;
         }
 
-        
+        private void UpdateActiveButtons()
+        {
+            if (_presenter.IsLoggedIn)
+            {
+                btn_login.Enabled = false;
+                btn_register.Enabled = false;
+                btn_logout.Enabled = true;
+
+                if (_presenter.IsAdmin)
+                {
+                    btn_user.Enabled = false;
+                    btn_admin.Enabled = true;
+                }
+                else
+                {
+                    btn_user.Enabled = true;
+                    btn_admin.Enabled = false;
+                }
+            }
+            else
+            {
+                btn_login.Enabled = true;
+                btn_register.Enabled = true;
+                btn_user.Enabled = false;
+                btn_admin.Enabled = false;
+                btn_logout.Enabled = false;
+            }
+        }
     }
 }
