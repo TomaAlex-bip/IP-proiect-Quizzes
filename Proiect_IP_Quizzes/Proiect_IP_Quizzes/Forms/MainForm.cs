@@ -39,12 +39,17 @@ namespace Proiect_IP_Quizzes
 
         public void OpenUserForm()
         {
-            OpenChildForm(new Forms.UserForm(), btn_user);
+            OpenChildForm(new Forms.UserForm(this), btn_user);
         }
 
         public void OpenAdminForm()
         {
             OpenChildForm(new Forms.AdminForm(), btn_admin);
+        }
+
+        public void OpenQuizForm(string type, int size)
+        {
+            OpenChildForm(new Forms.QuizForm(this, type, size), null);
         }
 
         public void NotifyNotLoggedIn()

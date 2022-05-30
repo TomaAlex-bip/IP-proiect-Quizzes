@@ -23,8 +23,8 @@ namespace Presenters.PresenterFactory
         public RegisterPresenter GetRegisterPresenter(IRegisterView view, MainPresenter mainPresenter) => 
             new RegisterPresenter(view, ModelFactory.Instance.GetRegisterModel(), mainPresenter);
 
-        public UserPresenter GetUserPresenter(IUserView view) => 
-            new UserPresenter(view, ModelFactory.Instance.GetUserModel());
+        public UserPresenter GetUserPresenter(IUserView view, MainPresenter mainPresenter) => 
+            new UserPresenter(view, ModelFactory.Instance.GetUserModel(), mainPresenter);
 
         public QuizPresenter GetQuizPresenter(IQuizView view) => 
             new QuizPresenter(view, ModelFactory.Instance.GetQuizModel());

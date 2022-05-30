@@ -18,5 +18,7 @@
 
         void NotifyRestrictedPermission();
 
+        void OpenQuizForm(string type, int size);
+
     }
 }

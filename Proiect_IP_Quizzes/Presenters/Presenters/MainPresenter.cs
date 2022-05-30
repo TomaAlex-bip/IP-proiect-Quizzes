@@ -6,6 +6,7 @@ namespace Presenters.Presenters
 {
     public class MainPresenter
     {
+        public User CurrentUser => _model.CurrentUser;
         public bool IsLoggedIn { get => _model.CurrentUser != null; }
         public bool IsAdmin 
         { 
@@ -133,6 +134,10 @@ namespace Presenters.Presenters
             }
         }
 
+        public void OpenQuizPage(string type, int size)
+        {
+            _view.OpenQuizForm(type, size);
+        }
 
     }
 }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Utils.Interfaces
 {
     public interface IUserView
     {
+        void LoadData(int attempted, int passed, int failed, List<string> history, List<string> types);
     }
 }
