@@ -367,7 +367,7 @@ namespace Persistence
                 String sql;
 
 
-                sql = $"SELECT question_text, question_answer_1, question_answer_2, question_answer_3, question_correct_answer FROM Questions";
+                sql = $"SELECT question_id, question_type, question_text, question_answer_1, question_answer_2, question_answer_3, question_correct_answer FROM Questions";
 
                 cmd = _sqlConn.CreateCommand();
                 cmd.CommandText = sql;
@@ -375,13 +375,15 @@ namespace Persistence
 
                 while (dataReader.Read())
                 {
-                    var qt = dataReader.GetString(0);
-                    var qa1 = dataReader.GetString(1);
-                    var qa2 = dataReader.GetString(2);
-                    var qa3 = dataReader.GetString(3);
-                    var qca = dataReader.GetInt32(4);
+                    var id = dataReader.GetInt32(0);
+                    var type = dataReader.GetString(1);
+                    var qt = dataReader.GetString(2);
+                    var qa1 = dataReader.GetString(3);
+                    var qa2 = dataReader.GetString(4);
+                    var qa3 = dataReader.GetString(5);
+                    var qca = dataReader.GetInt32(6);
 
-                    Question qs = new Question(0, "", qt, qa1, qa2, qa3, qca);
+                    Question qs = new Question(id, type, qt, qa1, qa2, qa3, qca);
 
                     allq.Add(qs);
 

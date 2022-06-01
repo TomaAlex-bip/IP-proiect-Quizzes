@@ -1,17 +1,12 @@
 ﻿using Entities;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Persistence;
 using Utils.Interfaces;
 
 namespace Presenters.Presenters
 {
     public class AdminPresenter
     {
-
         private IAdminView _view;
         private AdminModel _model;
 
@@ -23,8 +18,18 @@ namespace Presenters.Presenters
 
         public void AddQuestion(Question question)
         {
-            _model.AddQuestion(question);
-            //TODO: call method from view to clear the fields or to notify user for mistake
+            
+            var status = _model.AddQuestion(question);
+            
+            if(status == false)
+            {
+                _view.NotifyError("can't add question");
+            }
+            else
+            {
+                _view.NotifySuccess("added question!");
+            }
+            
         }
 
         public void UpdateQuestion(int id, Question question)
@@ -35,13 +40,21 @@ namespace Presenters.Presenters
 
         public void DeleteQuestion(int id)
         {
-            _model.DeleteQuestion(id);
-            //TODO: call method from view to clear the fields or to notify user for mistake
+            var status = _model.DeleteQuestion(id);
+            if( status == false)
+            {
+                _view.NotifyError("can't delete question");
+            }
+            else
+            {
+                _view.NotifySuccess($"deleted question with id: {id}");
+            }
         }
 
-        public List<Question> GetAllQuestions()
+        public void LoadData()
         {
-            return _model.GetAllQuestions();
+            var questions = DatabaseContext.Instance.GetAllQuestions();
+            _view.LoadData(questions);
         }
 
     }

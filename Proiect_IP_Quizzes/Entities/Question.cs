@@ -27,5 +27,9 @@ namespace Entities
             CorrectAnswer = correctAnswer;
         }
 
+        public override string ToString()
+        {
+            return $"{Id} - {Type}";
+        }
     }
 }

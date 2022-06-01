@@ -20,6 +20,7 @@ namespace Proiect_IP_Quizzes
             InitializeComponent();
             SetPresenter(PresenterFactory.Instance.GetMainPresenter(this));
             UpdateActiveButtons();
+            OpenLoginForm();
         }
 
         public void OpenRegisterForm()
@@ -44,7 +45,7 @@ namespace Proiect_IP_Quizzes
 
         public void OpenAdminForm()
         {
-            OpenChildForm(new Forms.AdminForm(), btn_admin);
+            OpenChildForm(new Forms.AdminForm(this), btn_admin);
         }
 
         public void OpenQuizForm(string type, int size)
