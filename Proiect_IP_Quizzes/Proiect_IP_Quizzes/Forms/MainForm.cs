@@ -19,13 +19,64 @@ namespace Proiect_IP_Quizzes
         {
             InitializeComponent();
             SetPresenter(PresenterFactory.Instance.GetMainPresenter(this));
+            UpdateActiveButtons();
+        }
+
+        public void OpenRegisterForm()
+        {
+            OpenChildForm(new Forms.RegisterForm(this), btn_register);
+        }
+
+        public void OpenLoginForm()
+        {
+            OpenChildForm(new Forms.LoginForm(this), btn_login);
+        }
+
+        public void NotifyLogoutUser()
+        {
+            MessageBox.Show("Te-ai delogat cu succes!");
+        }
+
+        public void OpenUserForm()
+        {
+            OpenChildForm(new Forms.UserForm(this), btn_user);
+        }
+
+        public void OpenAdminForm()
+        {
+            OpenChildForm(new Forms.AdminForm(), btn_admin);
+        }
+
+        public void OpenQuizForm(string type, int size)
+        {
+            OpenChildForm(new Forms.QuizForm(this, type, size), null);
+        }
+
+        public void NotifyNotLoggedIn()
+        {
+            MessageBox.Show("Nu esti logat!");
+        }
+
+        public void NotifyRestrictedPermission()
+        {
+            MessageBox.Show("Nu ai permisiune pentru acest meniu!");
+        }
+
+        public void OpenRegisterForm(object sender, EventArgs e)
+        {
+            _presenter.OpenRegisterPage();
+        }
+
+        public void NotifyAlreadyLoggedIn()
+        {
+            MessageBox.Show("Esti deja logat!");
         }
 
         private void ActivateButton(object btnSender) //modific culoarea si marimea scrisului din butonul selectat
         {
-            if (btnSender != null)
+            if(btnSender != null)
             {
-                if (_currentButton != (Button)btnSender)
+                if(_currentButton != (Button)btnSender)
                 {
                     DisableButton();
                     _currentButton = (Button)btnSender;
@@ -37,7 +88,7 @@ namespace Proiect_IP_Quizzes
 
         private void OpenChildForm(Form childForm, object btnSender)
         {
-            if (_currentForm != null)
+            if(_currentForm != null)
             {
                 _currentForm.Close();
             }
@@ -52,11 +103,12 @@ namespace Proiect_IP_Quizzes
             childForm.Show();
             lbl_title.Text = childForm.Text; //schimbam titlul din header
 
+            UpdateActiveButtons();
         }
 
         private void DisableButton() //aduc butonul inapoi la setarile initiale
         {
-            foreach (Control previousBtn in panelMenu.Controls)
+            foreach( Control previousBtn in panelMenu.Controls)
             {
                 if (previousBtn.GetType() == typeof(Button))
                 {
@@ -68,22 +120,17 @@ namespace Proiect_IP_Quizzes
 
         private void OpenLoginForm(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.LoginForm(this), sender);
-        }
-
-        public void OpenRegisterForm(object sender, EventArgs e)
-        {
-            OpenChildForm(new Forms.RegisterForm(this), sender);
+            _presenter.OpenLoginPage();
         }
 
         private void OpenUserForm(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.UserForm(this), sender);
+            _presenter.OpenUserPage();
         }
 
         private void OpenAdminForm(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.AdminForm(this), sender);
+            _presenter.OpenAdminPage();
         }
 
         private void Logout(object sender, EventArgs e)
@@ -97,48 +144,33 @@ namespace Proiect_IP_Quizzes
             _presenter = presenter;
         }
 
-        public void OpenRegisterForm()
+        private void UpdateActiveButtons()
         {
-            OpenRegisterForm(btn_register, null);
-        }
-
-        public void OpenLoginForm()
-        {
-            OpenLoginForm(btn_login, null);
-        }
-
-        public void NotifyLogoutUser()
-        {
-            MessageBox.Show("Te-ai delogat cu succes!");
-        }
-        public void NotifyCantLogoutUser()
-        {
-            MessageBox.Show("Intai trebuie sa va logati!");
-        }
-
-        /*public void NotifyLoggedIn()
-        {
-            MessageBox.Show("Sunteti deja logat. Doriti sa va delogati?");
-        }*/
-
-        public bool NotifyAlreadyLoggedIn()
-        {
-            DialogResult AlreadyLoggedIn = MessageBox.Show("Sunteti deja logat. Doriti sa va delogati?", "Atentie!", MessageBoxButtons.YesNo);
-            if (AlreadyLoggedIn == DialogResult.Yes)
+            if (_presenter.IsLoggedIn)
             {
-                return true;
-            }
-            else if (AlreadyLoggedIn == DialogResult.No)
-            {
-                //nimic?
-                return false;
-            }
-            return false;
-        }
+                btn_login.Enabled = false;
+                btn_register.Enabled = false;
+                btn_logout.Enabled = true;
 
-        public void OpenUserForm()
-        {
-            OpenUserForm(btn_user, null);
+                if (_presenter.IsAdmin)
+                {
+                    btn_user.Enabled = false;
+                    btn_admin.Enabled = true;
+                }
+                else
+                {
+                    btn_user.Enabled = true;
+                    btn_admin.Enabled = false;
+                }
+            }
+            else
+            {
+                btn_login.Enabled = true;
+                btn_register.Enabled = true;
+                btn_user.Enabled = false;
+                btn_admin.Enabled = false;
+                btn_logout.Enabled = false;
+            }
         }
     }
 }

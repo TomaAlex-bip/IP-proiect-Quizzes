@@ -6,6 +6,20 @@ namespace Presenters.Presenters
 {
     public class MainPresenter
     {
+        public User CurrentUser => _model.CurrentUser;
+        public bool IsLoggedIn { get => _model.CurrentUser != null; }
+        public bool IsAdmin 
+        { 
+            get
+            {
+                if(_model.CurrentUser != null && _model.CurrentUser.IsAdmin == 1)
+                {
+                    return true;
+                }
+                return false;
+            } 
+        }
+
         private MainModel _model;
         private IMainView _view;
 
@@ -18,20 +32,36 @@ namespace Presenters.Presenters
         public void LoginUser(User user)
         {
             _model.UpdateCurrentUser(user);
-            _view.OpenUserForm();
+
+            var loggedUser = _model.CurrentUser;
+
+            if (loggedUser == null)
+            {
+                _view.NotifyNotLoggedIn();
+                return;
+            }
+
+            if (loggedUser.IsAdmin == 0)
+            {
+                _view.OpenUserForm();
+            }
+            else if(loggedUser.IsAdmin == 1)
+            {
+                _view.OpenAdminForm();
+            }
         }
 
         public void LogoutUser()
         {
-            if (_model.CurrentUser != null)
+            var user = _model.CurrentUser;
+            if (user == null)
             {
-                _model.UpdateCurrentUser(null);
-                _view.NotifyLogoutUser();
+                _view.NotifyNotLoggedIn();
+                return;
             }
-            else
-            {
-                _view.NotifyCantLogoutUser();
-            }
+
+            _model.UpdateCurrentUser(null);
+            _view.NotifyLogoutUser();
             _view.OpenLoginForm();
         }
 
@@ -41,26 +71,72 @@ namespace Presenters.Presenters
         }
 
         public void OpenRegisterPage()
-        {//butonu din login de register
+        {
+            var user = _model.CurrentUser;
+            if(user != null)
+            {
+                _view.NotifyAlreadyLoggedIn();
+                return;
+            }
+
             _view.OpenRegisterForm();
         }
 
         public void OpenLoginPage()
-        {//butonu din register de login
-            if (GetCurrentUser() != null)
+        {
+            var user = _model.CurrentUser;
+            if (user != null)
             {
-                if (_view.NotifyAlreadyLoggedIn())
-                {
-                    _model.UpdateCurrentUser(null);
-                    _view.OpenLoginForm();
-                }
+                _view.NotifyAlreadyLoggedIn();
+                return;
             }
-            else _view.OpenLoginForm();
+
+            _view.OpenLoginForm();
         }
 
-        public User GetCurrentUser()
+        public void OpenUserPage()
         {
-            return _model.CurrentUser;
+            var user = _model.CurrentUser;
+
+            if (user == null)
+            {
+                _view.NotifyNotLoggedIn();
+                return;
+            }
+
+            if(user.IsAdmin == 0)
+            {
+                _view.OpenUserForm();
+            }
+            else
+            {
+                _view.NotifyRestrictedPermission();
+            }
+        }
+
+        public void OpenAdminPage()
+        {
+            var user = _model.CurrentUser;
+
+            if (user == null)
+            {
+                _view.NotifyNotLoggedIn();
+                return;
+            }
+
+            if (user.IsAdmin == 1)
+            {
+                _view.OpenAdminForm();
+            }
+            else
+            {
+                _view.NotifyRestrictedPermission();
+            }
+        }
+
+        public void OpenQuizPage(string type, int size)
+        {
+            _view.OpenQuizForm(type, size);
         }
 
     }

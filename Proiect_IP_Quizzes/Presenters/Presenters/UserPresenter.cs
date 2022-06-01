@@ -1,6 +1,6 @@
-﻿using Entities;
-using Models;
+﻿using Models;
 using System.Collections.Generic;
+using System.Linq;
 using Utils.Interfaces;
 
 namespace Presenters.Presenters
@@ -18,30 +18,27 @@ namespace Presenters.Presenters
             _mainPresenter = mainPresenter;
         }
 
-        public bool VerifyLogin()
+        public void LoadData()
         {
-            if (_mainPresenter.GetCurrentUser() == null)
-                return false;
-            return true;
-        }
-
-        public void InitView()
-        {
-            var currentUser = _mainPresenter.GetCurrentUser();
-            if (currentUser == null)
+            var user = _mainPresenter.CurrentUser;
+            //if (user == null)
             {
-
-                //_view.OpenLoginForm();
+                _view.LoadData(0, 0, 0, new List<string>(), new List<string>());
                 return;
             }
 
-            _view.WelcomeLabelUsername(currentUser.Username);
-            //var statistics = _model.GetUserStatistics(currentUser.Id);
-            //var attempts = _model.GetUserAttempts(currentUser.Id);
-            //var questionTypes = _model.GetQuestionTypes();
+            var stats = _model.GetUserStatistics(user.Id);
+            var history = _model.GetUserAttempts(user.Id);
+            var historyString = (from attempt in history
+                                 select attempt.ToString()).ToList();
+            var types = _model.GetQuestionTypes();
 
+            _view.LoadData(stats.TestsSubmitted, stats.TestsPassed, stats.TestsFailed, historyString, types);
+        }
 
-            // TODO: insert values in textboxes
+        public void StartQuiz(string type, int size)
+        {
+            _mainPresenter.OpenQuizPage(type, size);
         }
 
     }

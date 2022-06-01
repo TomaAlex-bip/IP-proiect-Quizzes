@@ -1,7 +1,7 @@
 ﻿using Presenters.PresenterFactory;
 using Presenters.Presenters;
 using System;
-using System.Windows.Forms;
+using System .Windows.Forms;
 using Utils;
 using Utils.Interfaces;
 
@@ -25,7 +25,7 @@ namespace Proiect_IP_Quizzes.Forms
             var registerPassword = txt_password.Text;
             var confirmPassword = txt_confirmPassword.Text;
 
-            if (registerPassword != confirmPassword)
+            if(registerPassword != confirmPassword)
             {
                 MessageBox.Show("Parolele cu coincid");
                 return;

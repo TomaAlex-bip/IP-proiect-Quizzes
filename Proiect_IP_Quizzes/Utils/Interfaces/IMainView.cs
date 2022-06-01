@@ -8,11 +8,17 @@
 
         void OpenUserForm();
 
-        void NotifyLogoutUser();
-        void NotifyCantLogoutUser();
+        void OpenAdminForm();
 
-        bool NotifyAlreadyLoggedIn();
-        //void NotifyLoggedIn();
+        void NotifyLogoutUser();
+
+        void NotifyNotLoggedIn();
+
+        void NotifyAlreadyLoggedIn();
+
+        void NotifyRestrictedPermission();
+
+        void OpenQuizForm(string type, int size);
 
     }
 }

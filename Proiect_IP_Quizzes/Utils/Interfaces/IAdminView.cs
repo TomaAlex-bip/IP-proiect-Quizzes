@@ -8,6 +8,5 @@ namespace Utils.Interfaces
 {
     public interface IAdminView
     {
-        void WelcomeLabelAdmin(string username);
     }
 }

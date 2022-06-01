@@ -21,7 +21,7 @@ namespace Models.ModelFactory
 
         public MainModel GetMainModel()
         {
-            if (_mainModelInstance == null)
+            if(_mainModelInstance == null)
             {
                 _mainModelInstance = new MainModel();
             }

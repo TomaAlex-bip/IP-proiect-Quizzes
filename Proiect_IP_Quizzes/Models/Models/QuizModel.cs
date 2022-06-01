@@ -31,14 +31,15 @@ namespace Models
             FinishedQuestions = 0;
             _quizQuestions.Clear();
 
-            List<Question> totalQuestions = DatabaseContext.Instance.GetQuestionsOfType(type);
+            //List<Question> totalQuestions = DatabaseContext.Instance.GetQuestionsOfType(type);
 
             var random = new Random();
 
             for (int i = 0; i < size; i++)
             {
-                var randomIndex = random.Next(0, totalQuestions.Count);
-                _quizQuestions.Add(totalQuestions[randomIndex]);
+                //var randomIndex = random.Next(0, totalQuestions.Count);
+                //_quizQuestions.Add(totalQuestions[randomIndex]);
+                _quizQuestions.Add(new Question(0, "type", "text", "a1", "a2", "a3", 0));
             }
         }
 
