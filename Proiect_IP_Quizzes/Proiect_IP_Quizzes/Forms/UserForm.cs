@@ -36,13 +36,21 @@ namespace Proiect_IP_Quizzes.Forms
             {
                 comboBoxType.Items.Add(type);
             }
+            comboBoxType.SelectedIndex = 0;
         }
 
 
         private void buttonStartQuiz_Click(object sender, System.EventArgs e)
         {
-            var type = comboBoxType.SelectedText;
+            var type = comboBoxType.Text;
             var size = (int)numericUpDownNoQuestions.Value;
+
+            if(size < 3)
+            {
+                MessageBox.Show("Nu se poate porni un test cu mai putin de 3 intrebari!");
+                return;
+            }
+
             _presenter.StartQuiz(type, size);
         }
 

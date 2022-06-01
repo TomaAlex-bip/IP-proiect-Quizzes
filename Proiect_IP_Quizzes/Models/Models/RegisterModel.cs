@@ -12,7 +12,7 @@ namespace Models
 
         public bool RegisterUser(string username, string hash)
         {
-            return true;
+            //return true;
             return DatabaseContext.Instance.RegisterUser(username, hash);
         }
     }

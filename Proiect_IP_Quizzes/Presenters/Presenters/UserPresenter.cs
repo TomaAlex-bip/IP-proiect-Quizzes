@@ -21,7 +21,7 @@ namespace Presenters.Presenters
         public void LoadData()
         {
             var user = _mainPresenter.CurrentUser;
-            //if (user == null)
+            if (user == null)
             {
                 _view.LoadData(0, 0, 0, new List<string>(), new List<string>());
                 return;
@@ -32,6 +32,9 @@ namespace Presenters.Presenters
             var historyString = (from attempt in history
                                  select attempt.ToString()).ToList();
             var types = _model.GetQuestionTypes();
+
+            if (stats == null)
+                stats = new Entities.Statistic(user.Id, 0, 0, 0);
 
             _view.LoadData(stats.TestsSubmitted, stats.TestsPassed, stats.TestsFailed, historyString, types);
         }

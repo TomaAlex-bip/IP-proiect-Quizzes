@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Entities;
 
 namespace Utils.Interfaces
 {
     public interface IQuizView
     {
+        void LoadQuestion(Question question);
+
+        void UpdateQuestionIndex(int currentIndex, int totalQuestions);
+
+        void ShowQuizResults(int correntAnswers, int totalQuestions);
+
     }
 }

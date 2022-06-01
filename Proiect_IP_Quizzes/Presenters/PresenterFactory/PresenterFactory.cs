@@ -26,8 +26,8 @@ namespace Presenters.PresenterFactory
         public UserPresenter GetUserPresenter(IUserView view, MainPresenter mainPresenter) => 
             new UserPresenter(view, ModelFactory.Instance.GetUserModel(), mainPresenter);
 
-        public QuizPresenter GetQuizPresenter(IQuizView view) => 
-            new QuizPresenter(view, ModelFactory.Instance.GetQuizModel());
+        public QuizPresenter GetQuizPresenter(IQuizView view, MainPresenter mainPresenter) => 
+            new QuizPresenter(view, ModelFactory.Instance.GetQuizModel(), mainPresenter);
 
         public AdminPresenter GetAdminPresenter(IAdminView view) => 
             new AdminPresenter(view, ModelFactory.Instance.GetAdminModel());

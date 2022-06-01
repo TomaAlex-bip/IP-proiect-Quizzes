@@ -80,7 +80,8 @@ namespace Persistence
         /// <returns>User-ul din baza de date</returns>
         public User LoginUser(string username, string hash)
         {
-            int clientID = 0;
+            int clientID = -1;
+            int isAdmin = 0;
             ConnectToDatabase();
             try
             {
@@ -88,7 +89,8 @@ namespace Persistence
                 SQLiteDataReader dataReader;
                 String sql;
 
-                sql = "SELECT user_id FROM Users WHERE username='" + username + "'AND hashed_password='" + hash + "'";
+                sql = "SELECT user_id, is_admin FROM Users WHERE username='" + username + "' AND hashed_password='" + hash + "'";
+                //sql = "SELECT user_id FROM Users WHERE username='user' AND hashed_password='userpassword'";
 
 
                 comm = _sqlConn.CreateCommand();
@@ -98,13 +100,17 @@ namespace Persistence
                 if (dataReader.Read())
                 {
                     clientID = dataReader.GetInt32(0);
+                    isAdmin = dataReader.GetInt32(1);
                 }
 
                 dataReader.Close();
                 comm.Dispose();
                 DisconnectFromDatabase();
 
-                return new User(clientID, username, hash, 0);
+                if(clientID == -1)
+                    return null;
+
+                return new User(clientID, username, hash, isAdmin);
             }
 
             catch (SQLiteException e)
@@ -154,6 +160,8 @@ namespace Persistence
         /// <returns>Statisticile utilizatorului</returns>
         public Statistic GetUserStatistics(int userID) //
         {
+            ConnectToDatabase();
+
             try
             {
                 SQLiteCommand cmd;
@@ -202,6 +210,8 @@ namespace Persistence
         /// <returns>Lista corespunzatoare incercarilor</returns>
         public List<Attempt> GetUserAttempts(int userID)
         {
+            ConnectToDatabase();
+
             List<Attempt> attempts = new List<Attempt>();
 
             try
@@ -252,6 +262,8 @@ namespace Persistence
         /// <returns>Lista cu intrebari de un anumit tip</returns>
         public List<Question> GetQuestionsOfType(string type)
         {
+            ConnectToDatabase();
+
             List<Question> questions = new List<Question>();
             
             try
@@ -274,7 +286,7 @@ namespace Persistence
                     var qa2 = dataReader.GetString(2);
                     var qa3 = dataReader.GetString(3);
                     var qca = dataReader.GetInt32(4);
-                    Console.WriteLine(qt + " " + qa1 + " " + qa2 + " " + qa3 + " " + qca);
+                    //Console.WriteLine(qt + " " + qa1 + " " + qa2 + " " + qa3 + " " + qca);
 
                     Question question = new Question(0, type, qt, qa1, qa2, qa3, qca);
 
@@ -300,6 +312,8 @@ namespace Persistence
         /// <returns>Lista cu tipul intrebarilor</returns>
         public List<string> GetQuestionsType()
         {
+            ConnectToDatabase();
+
             List<string> qtype = new List<string>();
             
             try
@@ -344,6 +358,8 @@ namespace Persistence
         /// <returns>Lista cu toate intrebarile</returns>
         public List<Question> GetAllQuestions()
         {
+            ConnectToDatabase();
+
             List<Question> allq = new List<Question>();
 
             try

@@ -12,17 +12,20 @@ namespace Models
     {
         public int TotalQuestions { get; private set; }
         public int FinishedQuestions { get; private set; }
+        public int CorrectAnswers => _correctAnswers;
+
+        public Question FirstQuestion => _quizQuestions[0];
 
         private List<Question> _quizQuestions;
 
         private int _correctAnswers;
-        private int _wrongAnswers;
+
+        
 
         public QuizModel()
         {
             _quizQuestions = new List<Question>();
             _correctAnswers = 0;
-            _wrongAnswers = 0;
         }
 
         public void GenerateRandomQuiz(string type, int size)
@@ -31,21 +34,21 @@ namespace Models
             FinishedQuestions = 0;
             _quizQuestions.Clear();
 
-            //List<Question> totalQuestions = DatabaseContext.Instance.GetQuestionsOfType(type);
+            List<Question> totalQuestions = DatabaseContext.Instance.GetQuestionsOfType(type);
 
             var random = new Random();
 
             for (int i = 0; i < size; i++)
             {
-                //var randomIndex = random.Next(0, totalQuestions.Count);
-                //_quizQuestions.Add(totalQuestions[randomIndex]);
-                _quizQuestions.Add(new Question(0, "type", "text", "a1", "a2", "a3", 0));
+                var randomIndex = random.Next(0, totalQuestions.Count);
+                var q = totalQuestions[randomIndex];
+                _quizQuestions.Add(q);
             }
         }
 
         public Question GetNextQuestion()
         {
-            if(FinishedQuestions < TotalQuestions)
+            if(FinishedQuestions < TotalQuestions-1)
             {
                 FinishedQuestions++;
                 return _quizQuestions[FinishedQuestions];
@@ -59,10 +62,6 @@ namespace Models
             if (_quizQuestions[FinishedQuestions].CorrectAnswer == answer)
             {
                 _correctAnswers++;
-            }
-            else
-            {
-                _wrongAnswers++;
             }
         }
 

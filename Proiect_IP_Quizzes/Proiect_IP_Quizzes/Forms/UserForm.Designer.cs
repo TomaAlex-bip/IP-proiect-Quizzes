@@ -174,6 +174,7 @@
             this.textBoxAttemptsHistory.Location = new System.Drawing.Point(6, 29);
             this.textBoxAttemptsHistory.Multiline = true;
             this.textBoxAttemptsHistory.Name = "textBoxAttemptsHistory";
+            this.textBoxAttemptsHistory.ReadOnly = true;
             this.textBoxAttemptsHistory.Size = new System.Drawing.Size(315, 114);
             this.textBoxAttemptsHistory.TabIndex = 0;
             // 
