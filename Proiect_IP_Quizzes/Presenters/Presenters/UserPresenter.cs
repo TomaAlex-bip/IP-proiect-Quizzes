@@ -29,8 +29,7 @@ namespace Presenters.Presenters
 
             var stats = _model.GetUserStatistics(user.Id);
             var history = _model.GetUserAttempts(user.Id);
-            var historyString = (from attempt in history
-                                 select attempt.ToString()).ToList();
+            var historyString = (from attempt in history select attempt.ToString()).ToList();
             var types = _model.GetQuestionTypes();
 
             if (stats == null)

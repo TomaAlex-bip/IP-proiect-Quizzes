@@ -20,6 +20,7 @@ namespace Models
 
         private int _correctAnswers;
 
+        private string _quizType;
         
 
         public QuizModel()
@@ -30,6 +31,7 @@ namespace Models
 
         public void GenerateRandomQuiz(string type, int size)
         {
+            _quizType = type;
             TotalQuestions = size;
             FinishedQuestions = 0;
             _quizQuestions.Clear();
@@ -63,6 +65,11 @@ namespace Models
             {
                 _correctAnswers++;
             }
+        }
+
+        public void RegisterAttempt(int userId)
+        {
+            DatabaseContext.Instance.RegisterAttempt(userId, _quizType, _correctAnswers, TotalQuestions - _correctAnswers);
         }
 
     }

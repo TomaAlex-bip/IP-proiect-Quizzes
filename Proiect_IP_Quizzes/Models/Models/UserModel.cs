@@ -12,34 +12,22 @@ namespace Models
     {
         private Statistic _userStatistic;
         private List<Attempt> _userAttempts;
-        private bool quizAttempted;
 
 
         public UserModel()
         {
             _userAttempts = new List<Attempt>();
-            quizAttempted = false;
         }
 
         public Statistic GetUserStatistics(int userId)
         {
-            if(quizAttempted)
-            {
-                _userStatistic = DatabaseContext.Instance.GetUserStatistics(userId);
-                quizAttempted = false;
-            }
-            
+            _userStatistic = DatabaseContext.Instance.GetUserStatistics(userId);
             return _userStatistic;
         }
 
         public List<Attempt> GetUserAttempts(int userId)
         {
-            if(quizAttempted)
-            {
-                _userAttempts = DatabaseContext.Instance.GetUserAttempts(userId);
-                quizAttempted = false;
-            }
-
+            _userAttempts = DatabaseContext.Instance.GetUserAttempts(userId);
             return _userAttempts;
         }
 

@@ -56,10 +56,10 @@ namespace Proiect_IP_Quizzes.Forms
             if(radiobtn_first.Checked)
                 answer = 1;
 
-            if (radiobtn_first.Checked)
+            if (radiobtn_second.Checked)
                 answer = 2;
 
-            if (radiobtn_first.Checked)
+            if (radiobtn_third.Checked)
                 answer = 3;
 
             _presenter.NextQuestion(answer);

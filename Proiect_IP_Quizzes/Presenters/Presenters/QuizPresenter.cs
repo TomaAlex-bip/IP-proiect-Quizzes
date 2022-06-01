@@ -45,6 +45,7 @@ namespace Presenters.Presenters
             var correctQuestions = _model.CorrectAnswers;
             _view.ShowQuizResults(correctQuestions, totalQuestions);
             _mainPresenter.OpenUserPage();
+            _model.RegisterAttempt(_mainPresenter.CurrentUser.Id);
         }
 
     }

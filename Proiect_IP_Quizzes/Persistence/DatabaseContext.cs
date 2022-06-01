@@ -168,7 +168,7 @@ namespace Persistence
                 SQLiteDataReader dataReader;
                 String sql;
 
-                sql = $"SELECT tests_passed, tests_failed, tests_failed+tests_passed AS tests FROM Statistics WHERE user_id = {userID}";
+                sql = $"SELECT tests_passed, tests_failed FROM Statistics WHERE user_id = {userID}";
 
                 cmd = _sqlConn.CreateCommand();
                 cmd.CommandText = sql;
@@ -176,14 +176,12 @@ namespace Persistence
 
                 int pass = 0;
                 int fail = 0;
-                int total = 0;
 
 
                 if (dataReader.Read())
                 {
                     pass = dataReader.GetInt32(0);
                     fail = dataReader.GetInt32(1);
-                    total = dataReader.GetInt32(2);
                 }
 
                 dataReader.Close();
@@ -191,7 +189,7 @@ namespace Persistence
 
                 DisconnectFromDatabase();
 
-                return new Statistic(userID, total, pass, fail);
+                return new Statistic(userID, pass+fail, pass, fail);
             }
 
             catch (SQLiteException e)
@@ -236,7 +234,7 @@ namespace Persistence
                     var wa = dataReader.GetInt32(4);
                     Console.WriteLine(atid + " " + name + " " + attd + " " + ca + " " + wa);
 
-                    Attempt a = new Attempt(atid, userID, attd, ca, wa);
+                    Attempt a = new Attempt(atid, userID, attd, ca, wa, name);
 
                     attempts.Add(a);
 
@@ -516,5 +514,32 @@ namespace Persistence
             }
 
         }
+
+        public bool RegisterAttempt(int userId, string quizType, int correct, int wrong)
+        {
+            ConnectToDatabase();
+            try
+            {
+                SQLiteCommand cmd;
+                cmd = _sqlConn.CreateCommand();
+                String sql;
+
+                sql = $"INSERT INTO Attempts(user_id,quiz_type,attempt_date, correct_answers, wrong_answers) VALUES ({userId},'{quizType}', '{DateTime.Now.ToString("g")}', {correct}, {wrong})";
+
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+
+
+                cmd.Dispose();
+                DisconnectFromDatabase();
+            }
+
+            catch (SQLiteException e)
+            {
+                Console.WriteLine(e);
+            }
+            return true;
+        }
+
     }
 }

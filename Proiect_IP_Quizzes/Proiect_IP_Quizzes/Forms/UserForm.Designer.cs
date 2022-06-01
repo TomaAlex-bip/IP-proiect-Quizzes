@@ -200,6 +200,11 @@
             this.numericUpDownNoQuestions.Name = "numericUpDownNoQuestions";
             this.numericUpDownNoQuestions.Size = new System.Drawing.Size(115, 29);
             this.numericUpDownNoQuestions.TabIndex = 6;
+            this.numericUpDownNoQuestions.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             // 
             // label1
             // 

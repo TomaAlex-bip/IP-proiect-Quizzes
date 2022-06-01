@@ -21,6 +21,8 @@ namespace Proiect_IP_Quizzes.Forms
 
         public void LoadData(int attempted, int passed, int failed, List<string> history, List<string> types)
         {
+            lbl_user_name.Text = _mainForm.Presenter.CurrentUser.Username;
+
             labelAttemptedQuizzes.Text = attempted.ToString();
             labelPassedQuizzes.Text = passed.ToString();
             labelFailedQuizzes.Text = failed.ToString();
