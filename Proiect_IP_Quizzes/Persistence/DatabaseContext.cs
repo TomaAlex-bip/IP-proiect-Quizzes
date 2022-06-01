@@ -9,13 +9,19 @@ using Entities;
 
 namespace Persistence
 {
+    /// <summary>
+    /// Clasa pentru citirea/scrierea/stergerea din baza de date
+    /// </summary>
     public class DatabaseContext
     {
         private static DatabaseContext _instance = null;
 
-        //am facut asta sa fie pe toata clasa ca sa pot sa o accesez si in connect si in disconnect
+ 
         private SQLiteConnection _sqlConn;
 
+        /// <summary>
+        /// Clasa pentru a crea un singleton design pattern
+        /// </summary>
         public static DatabaseContext Instance
         {
             get
@@ -28,6 +34,10 @@ namespace Persistence
             }
         }
 
+        /// <summary>
+        /// Clasa pentru conectarea la baza de date
+        /// </summary>
+        /// <returns>False daca nu s-a reusit conectarea, true daca s-a reusit</returns>
         private bool ConnectToDatabase()
         {
             try
@@ -43,6 +53,10 @@ namespace Persistence
             return true;
         }
 
+        /// <summary>
+        /// Clasa pentru deconectarea de la baza de date
+        /// </summary>
+        /// <returns>False daca nu s-a reusit deconectarea, true daca s-a reusit</returns>
         private bool DisconnectFromDatabase()
         {
             try
@@ -58,6 +72,12 @@ namespace Persistence
             return true;
         }
 
+        /// <summary>
+        /// Clasa pentru logarea la baza de date cu un anumit user stocat in baza de date
+        /// </summary>
+        /// <param name="username">Username-ul utilizatorului</param>
+        /// <param name="hash">Parola criptata</param>
+        /// <returns>User-ul din baza de date</returns>
         public User LoginUser(string username, string hash)
         {
             int clientID = 0;
@@ -94,7 +114,12 @@ namespace Persistence
             return null;
         }
 
-
+        /// <summary>
+        /// Clasa pentru a inregistra un nou user
+        /// </summary>
+        /// <param name="username">Username-ul utilizatorului cu care se inregistreaza</param>
+        /// <param name="hash">Parola criptata</param>
+        /// <returns>True daca s-a reusit inregistrarea</returns>
         public bool RegisterUser(string username, string hash)
         {
             ConnectToDatabase();
@@ -104,8 +129,6 @@ namespace Persistence
                 cmd = _sqlConn.CreateCommand();
                 String sql;
 
-
-                //aici nu prea stiu cum sa facem cu is_admin ala, gen cum o sa putem noi modifica daca sa fie admin sau nu??? si deocamdata am lasat fara is_admin query-ul.
 
                 sql = $"INSERT INTO Users(username,hashed_password,is_admin) VALUES ('{username}','{hash}', 0)";
 
@@ -124,6 +147,11 @@ namespace Persistence
             return true;
         }
 
+        /// <summary>
+        /// Clasa pentru preluarea statisticilor unui user conectat
+        /// </summary>
+        /// <param name="userID">ID-ul utilizatorului conectat</param>
+        /// <returns>Statisticile utilizatorului</returns>
         public Statistic GetUserStatistics(int userID) //
         {
             try
@@ -166,6 +194,12 @@ namespace Persistence
             return new Statistic(userID, 0, 0, 0);
 
         }
+
+        /// <summary>
+        /// Clasa pentru a afla numarul de incercari de rezolvare cat si raspunsurile corecte/incorecte
+        /// </summary>
+        /// <param name="userID">ID-ul utilizatorului conectat</param>
+        /// <returns>Lista corespunzatoare incercarilor</returns>
         public List<Attempt> GetUserAttempts(int userID)
         {
             List<Attempt> attempts = new List<Attempt>();
@@ -211,6 +245,11 @@ namespace Persistence
             return attempts;
         }
 
+        /// <summary>
+        /// Clasa pentru preluarea intrebarilor de un anumit tip
+        /// </summary>
+        /// <param name="type">Tipul intrebarii</param>
+        /// <returns>Lista cu intrebari de un anumit tip</returns>
         public List<Question> GetQuestionsOfType(string type)
         {
             List<Question> questions = new List<Question>();
@@ -255,6 +294,10 @@ namespace Persistence
             return questions;
         }
 
+        /// <summary>
+        /// Clasa pentru a prelua tipul intrebarilor
+        /// </summary>
+        /// <returns>Lista cu tipul intrebarilor</returns>
         public List<string> GetQuestionsType()
         {
             List<string> qtype = new List<string>();
@@ -295,6 +338,10 @@ namespace Persistence
            
         }
 
+        /// <summary>
+        /// Clasa pentru a prelua toate intrebarile
+        /// </summary>
+        /// <returns>Lista cu toate intrebarile</returns>
         public List<Question> GetAllQuestions()
         {
             List<Question> allq = new List<Question>();
@@ -340,6 +387,11 @@ namespace Persistence
 
         }
 
+        /// <summary>
+        /// Clasa pentru a adauga o intrebare noua
+        /// </summary>
+        /// <param name="question">Clasa pentru a stoca o intrebare</param>
+        /// <returns>True daca s-a reusit inserarea, false daca nu s-a reusit</returns>
         public bool AddQuestion(Question question)
         {
             ConnectToDatabase();
@@ -370,6 +422,13 @@ namespace Persistence
             }
 
         }
+
+        /// <summary>
+        /// Clasa pentru a actualiza o intrebare
+        /// </summary>
+        /// <param name="id">ID-ul intrebarii</param>
+        /// <param name="question">Clasa cu intrebarea stocata</param>
+        /// <returns>True daca s-a reusit actualizarea, false daca nu s-a reusit</returns>
         public bool UpdateQuestion(int id, Question question)
         {
             ConnectToDatabase();
@@ -406,6 +465,11 @@ namespace Persistence
             }
         }
 
+        /// <summary>
+        /// Clasa pentru a sterge o intrebare
+        /// </summary>
+        /// <param name="id">ID-ul intrebarii</param>
+        /// <returns>True daca s-a reusit stergerea, false daca nu s-a reusit</returns>
         public bool DeleteQuestion(int id)
         {
             ConnectToDatabase();
