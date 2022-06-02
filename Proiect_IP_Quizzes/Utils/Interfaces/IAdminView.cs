@@ -10,5 +10,7 @@ namespace Utils.Interfaces
         void NotifyError(string message);
 
         void NotifySuccess(string message);
+
+        void ClearFields();
     }
 }

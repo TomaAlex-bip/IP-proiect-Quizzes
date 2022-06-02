@@ -18,7 +18,6 @@ namespace Presenters.Presenters
 
         public void AddQuestion(Question question)
         {
-            
             var status = _model.AddQuestion(question);
             
             if(status == false)
@@ -28,14 +27,23 @@ namespace Presenters.Presenters
             else
             {
                 _view.NotifySuccess("added question!");
+                _view.ClearFields();
             }
             
         }
 
         public void UpdateQuestion(int id, Question question)
         {
-            _model.UpdateQuestion(id, question);
-            //TODO: call method from view to clear the fields or to notify user for mistake
+            var status = _model.UpdateQuestion(id, question);
+            if (status == false)
+            {
+                _view.NotifyError("can't update question");
+            }
+            else
+            {
+                _view.NotifySuccess($"updated question with id: {id}");
+                _view.ClearFields();
+            }
         }
 
         public void DeleteQuestion(int id)
@@ -48,6 +56,7 @@ namespace Presenters.Presenters
             else
             {
                 _view.NotifySuccess($"deleted question with id: {id}");
+                _view.ClearFields();
             }
         }
 

@@ -32,6 +32,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbl_welcome = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.numericUpDownCorrAns = new System.Windows.Forms.NumericUpDown();
+            this.textBoxType = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.textBoxQuestionText = new System.Windows.Forms.TextBox();
             this.textBoxQuestionId = new System.Windows.Forms.TextBox();
             this.btn_delete = new System.Windows.Forms.Button();
@@ -52,14 +55,11 @@
             this.lbl_type = new System.Windows.Forms.Label();
             this.lbl_idlist = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxType = new System.Windows.Forms.TextBox();
-            this.numericUpDownCorrAns = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrAns)).BeginInit();
             this.panel3.SuspendLayout();
             this.groupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrAns)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -109,6 +109,31 @@
             this.panel2.Size = new System.Drawing.Size(374, 327);
             this.panel2.TabIndex = 1;
             // 
+            // numericUpDownCorrAns
+            // 
+            this.numericUpDownCorrAns.Location = new System.Drawing.Point(171, 254);
+            this.numericUpDownCorrAns.Name = "numericUpDownCorrAns";
+            this.numericUpDownCorrAns.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDownCorrAns.TabIndex = 20;
+            // 
+            // textBoxType
+            // 
+            this.textBoxType.Location = new System.Drawing.Point(261, 25);
+            this.textBoxType.Name = "textBoxType";
+            this.textBoxType.Size = new System.Drawing.Size(101, 20);
+            this.textBoxType.TabIndex = 19;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(197, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 24);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Type:";
+            // 
             // textBoxQuestionText
             // 
             this.textBoxQuestionText.Location = new System.Drawing.Point(80, 54);
@@ -148,6 +173,7 @@
             this.btn_update.TabIndex = 15;
             this.btn_update.Text = "UPDATE";
             this.btn_update.UseVisualStyleBackColor = false;
+            this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
             // 
             // btn_add
             // 
@@ -306,31 +332,6 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(197, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 24);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Type:";
-            // 
-            // textBoxType
-            // 
-            this.textBoxType.Location = new System.Drawing.Point(261, 25);
-            this.textBoxType.Name = "textBoxType";
-            this.textBoxType.Size = new System.Drawing.Size(101, 20);
-            this.textBoxType.TabIndex = 19;
-            // 
-            // numericUpDownCorrAns
-            // 
-            this.numericUpDownCorrAns.Location = new System.Drawing.Point(171, 254);
-            this.numericUpDownCorrAns.Name = "numericUpDownCorrAns";
-            this.numericUpDownCorrAns.Size = new System.Drawing.Size(57, 20);
-            this.numericUpDownCorrAns.TabIndex = 20;
-            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -345,10 +346,10 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrAns)).EndInit();
             this.panel3.ResumeLayout(false);
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrAns)).EndInit();
             this.ResumeLayout(false);
 
         }

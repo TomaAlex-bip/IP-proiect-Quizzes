@@ -65,6 +65,36 @@ namespace Proiect_IP_Quizzes.Forms
             _presenter.AddQuestion(question);
         }
 
+        private void btn_update_Click(object sender, System.EventArgs e)
+        {
+            int id;
+            try
+            {
+                id = int.Parse(textBoxQuestionId.Text);
+            }
+            catch
+            {
+                MessageBox.Show("id invalid!");
+                return;
+            }
+
+            var type = textBoxType.Text;
+            var text = textBoxQuestionText.Text;
+            var a1 = textBoxA1.Text;
+            var a2 = textBoxA2.Text;
+            var a3 = textBoxA3.Text;
+            var ca = (int)numericUpDownCorrAns.Value;
+
+            if (ca > 3 || ca < 1)
+            {
+                MessageBox.Show("Correct Answer invalid, trebuie sa fie intre 1 si 3!");
+                return;
+            }
+
+            var question = new Question(id, type, text, a1, a2, a3, ca);
+            _presenter.AddQuestion(question);
+        }
+
         private void btn_delete_Click(object sender, System.EventArgs e)
         {
             try
@@ -78,5 +108,18 @@ namespace Proiect_IP_Quizzes.Forms
             }
 
         }
+
+        public void ClearFields()
+        {
+            textBoxQuestionId.Text = string.Empty;
+            textBoxType.Text = string.Empty;
+            textBoxQuestionText.Text = string.Empty;
+            textBoxA1.Text = string.Empty;
+            textBoxA2.Text = string.Empty;
+            textBoxA3.Text = string.Empty;
+            numericUpDownCorrAns.Value = 0;
+        }
+
+        
     }
 }
