@@ -173,5 +173,10 @@ namespace Proiect_IP_Quizzes
                 btn_logout.Enabled = false;
             }
         }
+
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Environment.CurrentDirectory + "\\Quizzes.chm");
+        }
     }
 }

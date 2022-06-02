@@ -38,6 +38,7 @@
             this.panelTitleBar = new System.Windows.Forms.Panel();
             this.lbl_title = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
+            this.buttonHelp = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.panelTitleBar.SuspendLayout();
             this.SuspendLayout();
@@ -45,6 +46,7 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.Teal;
+            this.panelMenu.Controls.Add(this.buttonHelp);
             this.panelMenu.Controls.Add(this.btn_logout);
             this.panelMenu.Controls.Add(this.btn_admin);
             this.panelMenu.Controls.Add(this.btn_user);
@@ -171,6 +173,21 @@
             this.panelContent.Size = new System.Drawing.Size(648, 419);
             this.panelContent.TabIndex = 2;
             // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonHelp.FlatAppearance.BorderSize = 0;
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHelp.Location = new System.Drawing.Point(0, 355);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            this.buttonHelp.Size = new System.Drawing.Size(200, 70);
+            this.buttonHelp.TabIndex = 2;
+            this.buttonHelp.Text = "Help";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -200,6 +217,7 @@
         private System.Windows.Forms.Panel panelTitleBar;
         private System.Windows.Forms.Label lbl_title;
         private System.Windows.Forms.Panel panelContent;
+        private System.Windows.Forms.Button buttonHelp;
     }
 }
 

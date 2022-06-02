@@ -27,7 +27,11 @@ namespace Entities
 
         public override string ToString()
         {
-            return $"{Date} - {QuizType} - {CorrectAnswers}/{CorrectAnswers + WrongAnswers}";
+            var quizStatus = "Failed";
+            if (CorrectAnswers >= WrongAnswers)
+                quizStatus = "Passed";
+
+            return $"{Date} - {QuizType} - {CorrectAnswers}/{CorrectAnswers + WrongAnswers} - {quizStatus}";
         }
     }
 }
